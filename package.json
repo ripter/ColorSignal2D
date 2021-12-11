@@ -1,0 +1,27 @@
+{
+  "name": "colorsignal2d",
+  "version": "0.0.1",
+  "description": "A 2D Programming Language",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ripter/ColorSignal2D.git"
+  },
+  "author": "Chris Richards",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ripter/ColorSignal2D/issues"
+  },
+  "homepage": "https://github.com/ripter/ColorSignal2D#readme",
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "http-server": "^14.0.0",
+    "jest": "^27.4.4"
+  }
+}
