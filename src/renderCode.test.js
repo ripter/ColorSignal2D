@@ -1,7 +1,7 @@
 import { should } from 'chai';
 import sinon from 'sinon';
 
-import { renderCode } from './renderCode.js';
+import { renderCode } from './renderCode.mjs';
 
 // Setup Should style testing.
 should();
