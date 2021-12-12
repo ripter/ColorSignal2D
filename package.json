@@ -5,7 +5,9 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "make test",
+    "lint": "make lint",
+    "start": "make all"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,8 @@
     "chai": "^4.3.4",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3",
     "http-server": "^14.0.0",
-    "mocha": "^9.1.3"
+    "mocha": "^9.1.3",
+    "sinon": "^12.0.1"
   }
 }
