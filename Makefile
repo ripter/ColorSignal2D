@@ -14,7 +14,7 @@ server: node_modules/
 	npx http-server src/ -o
 
 test: node_modules/
-	npx jest
+	npx mocha src/**/**.test.js
 
 
 node_modules/: package.json
