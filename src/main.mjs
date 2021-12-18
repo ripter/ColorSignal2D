@@ -1,18 +1,14 @@
-import { renderCode } from './renderCode.mjs';
-import { tickCode } from './tickCode.mjs';
-import { loadCodeFile } from './utils/loadCodeFile.mjs';
-import { nextTick } from './actions/nextTick.mjs';
-import { reset } from './actions/reset.mjs';
+import { nextTick, render, reset } from './actions/index.mjs';
 
 // window.IS_RUNNING = true;
 const FRAME_DELAY = 1; // time between frames.
 
 window.CODE_FILE = [
-  ['S#0ff', 'E#ff0', '     ', '   ', 'E#ff0'],
-  ['', '     ', , , 'S#00f'],
-  ['', '     ', 'N#0f0', ,],
-  ['', '     ', 'S#00f', ,],
-  ['', 'N#f00', 'W#f0f', ,],
+  [null, null, null, null, null],
+  [null, null, null, null, null],
+  [null, {symbol: '*', color: 0xFF0000, config: 0x04}, null, null, null],
+  [null, null, null, null, null],
+  [null, null, null, null, null],
 ];
 
 // Get the 2d Context
@@ -20,7 +16,7 @@ const ctx = window.ctx = window.c.getContext('2d');
 // Load the code file
 reset();
 // first render
-nextTick();
+render();
 
 // Single Step button.
 window.btnNext.addEventListener('click', nextTick);
