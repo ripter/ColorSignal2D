@@ -1,4 +1,4 @@
-import { should } from 'chai';
+import { assert, should } from 'chai';
 import sinon from 'sinon';
 
 import { renderCode } from './renderCode.mjs';
@@ -17,23 +17,23 @@ describe('renderCode', () => {
 
   it('renders', () => {
     renderCode(ctx, 8, 8, [
-      [{symbol: '*', color: 0xFF0000, config: 0x04}]
+      [{symbol: '*', R: 0xFF, G: 0x00, B: 0x00, A: 0x04}]
     ]);
-    ctx.fillStyle.should.equal(0xFF0000);
+    assert.equal(ctx.fillStyle, '#FF0000', 'Color is set from RGB values');
+    assert.equal(ctx.fillText.args[0][0], '*', 'Symbol rendered as text');
   });
 
   it('renders text from the bottom so the top line is visible.', () => {
     renderCode(ctx, 8, 8, [
-      [{symbol: '*', color: 0xFF0000, config: 0x04}]
+      [{symbol: '*', R: 0xFF, G: 0x00, B: 0x00, A: 0x04}]
     ]);
-    ctx.fillText.args[0][0].should.equal('*');
     ctx.fillText.args[0][1].should.equal(0);
     ctx.fillText.args[0][2].should.equal(8);
   });
 
   it('clears the canvas before rendering text.', () => {
     renderCode(ctx, 8, 8, [
-      [{symbol: '*', color: 0xFF0000, config: 0x04}, null],
+      [{symbol: '*', R: 0xFF, G: 0x00, B: 0x00, A: 0x04}, null],
       [null, null]
     ]);
     ctx.fillRect.args[0][0].should.equal(0);

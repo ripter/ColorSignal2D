@@ -6,7 +6,7 @@ const FRAME_DELAY = 1; // time between frames.
 window.CODE_FILE = [
   [null, null, null, null, null],
   [null, null, null, null, null],
-  [null, {symbol: '*', color: 0xFF0000, config: 0x04}, null, null, null],
+  [null, '*#FF00FF04', null, null, null],
   [null, null, null, null, null],
   [null, null, null, null, null],
 ];

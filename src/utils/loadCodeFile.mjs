@@ -6,15 +6,3 @@ import { textToCell } from './textToCell.mjs';
 export function loadCodeFile(codeGrid) {
   return codeGrid.map((row) => row.map((cell) => !!cell ? textToCell(cell) : null));
 };
-  // (cell) => ({
-  //
-  // })));
-  // return codeGrid.map((row) => row.map((cell) => {
-  //   const [symbol, color = 0xFFFFFF, config = 0xFF] = cell;
-  //   return {
-  //     symbol,
-  //     color,
-  //     config,
-    // };
-  // }));
-// }
