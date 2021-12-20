@@ -8,7 +8,7 @@ clean:
 	-npm cache verify
 
 lint: node_modules/
-	npx eslint --fix src/**/*.mjs
+	npx eslint --fix src/*.mjs src/**/*.mjs src/**/*.test.js
 
 server: node_modules/
 	npx http-server src/ -o

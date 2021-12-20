@@ -1,7 +1,7 @@
 import { nextTick, render, reset } from './actions/index.mjs';
 
 // window.IS_RUNNING = true;
-const FRAME_DELAY = 1; // time between frames.
+// const FRAME_DELAY = 1; // time between frames.
 
 window.CODE_FILE = [
   ['*#00550002', null, null, null, null],
@@ -12,7 +12,7 @@ window.CODE_FILE = [
 ];
 
 // Get the 2d Context
-const ctx = window.ctx = window.c.getContext('2d');
+window.ctx = window.c.getContext('2d');
 // Load the code file
 reset();
 // first render
