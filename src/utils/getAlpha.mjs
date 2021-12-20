@@ -1,4 +1,3 @@
-
 /**
  * Returns just the Alpha value from the color number.
  * @param  {Number} rgba

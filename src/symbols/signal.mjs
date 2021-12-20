@@ -16,7 +16,6 @@ const SOUTH = 0b0010;
 const EAST = 0b0100;
 const WEST = 0b1000;
 
-
 /**
  * Performs a tick, moving the signal in a direction.
  * @param  {[type]} position               [description]
@@ -31,21 +30,18 @@ export function tick(position, cell, codeGrid) {
   const changeset = [];
   // const oldSignal = codeGrid[y][x];
   // const config = getAlpha(color);
-  let delta = {
+  const delta = {
     x: 0, y: 0,
-  }
+  };
 
   // Get the direction from the config.
   if (A === NORTH) {
     delta.y -= 1;
-  }
-  else if (A === SOUTH) {
+  } else if (A === SOUTH) {
     delta.y += 1;
-  }
-  else if (A === EAST) {
+  } else if (A === EAST) {
     delta.x += 1;
-  }
-  else if (A === WEST) {
+  } else if (A === WEST) {
     delta.x -= 1;
   }
 

@@ -12,11 +12,11 @@ export function renderCode(ctx, cellWidth, cellHeight, codeGrid) {
   // Draw a grid
   ctx.beginPath();
   ctx.strokeStyle = '#ff0';
-  for (let x=cellWidth; x < maxWidth; x += cellWidth) {
+  for (let x = cellWidth; x < maxWidth; x += cellWidth) {
     ctx.moveTo(x, 0);
     ctx.lineTo(x, maxHeight);
   }
-  for (let y=cellHeight; y < maxHeight; y += cellHeight) {
+  for (let y = cellHeight; y < maxHeight; y += cellHeight) {
     ctx.moveTo(0, y);
     ctx.lineTo(maxWidth, y);
   }

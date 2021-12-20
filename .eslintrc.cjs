@@ -16,5 +16,6 @@ module.exports = {
     'import/extensions': ['error', 'always'],
     'import/prefer-default-export': ['off'],
     'no-continue': ['off'],
+    'no-restricted-syntax': ['off'],
   },
 };

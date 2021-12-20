@@ -1,4 +1,3 @@
-
 export function colorFromCell(cell) {
   const R = padValue(cell.R);
   const G = padValue(cell.G);

@@ -1,5 +1,3 @@
-
-
 /**
  * Returns the Color as a number.
  * @param  {String} colorString
