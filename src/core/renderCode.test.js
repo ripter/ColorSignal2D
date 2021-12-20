@@ -12,6 +12,11 @@ describe('renderCode', () => {
     ctx = {
       fillText: sinon.fake(),
       fillRect: sinon.fake(),
+      beginPath: sinon.fake(),
+      closePath: sinon.fake(),
+      stroke: sinon.fake(),
+      moveTo: sinon.fake(),
+      lineTo: sinon.fake(),
     };
   });
 

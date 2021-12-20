@@ -1,7 +1,6 @@
 import { assert } from 'chai';
-// import sinon from 'sinon';
 
-
+import { textToCell } from '../utils/textToCell.mjs';
 import { WHITE, asNumber } from '../consts/colors.mjs';
 import { tick } from './signal.mjs';
 
@@ -11,42 +10,53 @@ describe('Symbol: * ', () => {
   let codeGrid;
   beforeEach(() => {
     codeGrid = [
-      ['','',''],
-      ['','',''],
-      ['','',''],
+      [null,null,null],
+      [null,null,null],
+      [null,null,null],
     ];
   });
 
-  it('moves North with Alpha 0b0001', () => {
-    codeGrid[1][1] = `*${WHITE}01`;
-    const actual = tick(1, 1, asNumber(`${WHITE}01`), codeGrid);
+  describe('tick()', () => {
+    it('moves North with Alpha 0b0001', () => {
+      const cell = textToCell(`*${WHITE}01`);
+      const actual = tick({x: 1, y: 1}, cell, codeGrid);
 
-    assert.exists(actual, 'tick should return codeGrid');
-    assert.equal(actual[0][1], `*${WHITE}01`, 'Signal should exist in the North Cell');
-    assert.notExists(actual[1][1], 'Signal should not be in the old cell.');
-  });
-  it('moves South with Alpha 0b0010', () => {
-    codeGrid[1][1] = `*${WHITE}02`;
-    const actual = tick(1, 1, asNumber(`${WHITE}02`), codeGrid);
+      assert.deepEqual(actual, [
+        {x: 1, y: 1, cell: null},
+        {x: 1, y: 0, cell},
+      ]);
+    });
 
-    assert.exists(actual, 'tick should return codeGrid');
-    assert.equal(actual[2][1], `*${WHITE}02`, 'Signal should exist in the South Cell');
-    assert.notExists(actual[1][1], 'Signal should not be in the old cell.');
-  });
-  it('moves East with Alpha 0b0100', () => {
-    codeGrid[1][1] = `*${WHITE}04`;
-    const actual = tick(1, 1, asNumber(`${WHITE}04`), codeGrid);
+    it('moves South with Alpha 0b0010', () => {
+      const cell = textToCell(`*${WHITE}02`);
+      const actual = tick({x: 1, y: 1}, cell, codeGrid);
 
-    assert.exists(actual, 'tick should return codeGrid');
-    assert.equal(actual[1][2], `*${WHITE}04`, 'Signal should exist in the East Cell');
-    assert.notExists(actual[1][1], 'Signal should not be in the old cell.');
-  });
-  it('moves West with Alpha 0b1000', () => {
-    codeGrid[1][1] = `*${WHITE}08`;
-    const actual = tick(1, 1, asNumber(`${WHITE}08`), codeGrid);
+      assert.deepEqual(actual, [
+        {x: 1, y: 1, cell: null},
+        {x: 1, y: 2, cell},
+      ]);
+    });
 
-    assert.exists(actual, 'tick should return codeGrid');
-    assert.equal(actual[1][0], `*${WHITE}08`, 'Signal should exist in the West Cell');
-    assert.notExists(actual[1][1], 'Signal should not be in the old cell.');
+    it('moves East with Alpha 0b0100', () => {
+      const cell = textToCell(`*${WHITE}04`);
+      const actual = tick({x: 1, y: 1}, cell, codeGrid);
+
+      assert.deepEqual(actual, [
+        {x: 1, y: 1, cell: null},
+        {x: 2, y: 1, cell},
+      ]);
+    });
+
+    it('moves West with Alpha 0b1000', () => {
+      const cell = textToCell(`*${WHITE}08`);
+      const actual = tick({x: 1, y: 1}, cell, codeGrid);
+
+      assert.deepEqual(actual, [
+        {x: 1, y: 1, cell: null},
+        {x: 0, y: 1, cell},
+      ]);
+    });
+
   });
+
 });

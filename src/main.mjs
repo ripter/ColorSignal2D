@@ -4,11 +4,11 @@ import { nextTick, render, reset } from './actions/index.mjs';
 const FRAME_DELAY = 1; // time between frames.
 
 window.CODE_FILE = [
-  [null, null, null, null, null],
-  [null, null, null, null, null],
-  [null, '*#FF00FF04', null, null, null],
-  [null, null, null, null, null],
-  [null, null, null, null, null],
+  ['*#00550002', null, null, null, null],
+  ['1', null, null, null, null],
+  ['2', '*#FF00FF04', null, null, null],
+  ['3', null, '*#F0550002', null, null],
+  ['4', '3', '2', '1', '0'],
 ];
 
 // Get the 2d Context
