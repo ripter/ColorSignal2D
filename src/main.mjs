@@ -11,10 +11,10 @@ import { nextTick, render, reset } from './actions/index.mjs';
 //   ['4', '3', '2', '1', '0'],
 // ];
 window.CODE_FILE = [
-  [null, null, null, null, null, null, null],
-  ['*#FF00FF04', null, null, null, null, null, '*#00FF0008'],
-  [null, '*#FF000002', null, null, null, null, null],
-  [null, null, null, null, null, null, null],
+  [null, null, null, null, null, '*#68686c02', null],
+  ['*#FF00FF04', null, null, null, null, '*#6C6F2002', null],
+  [null, '*#FF000002', null, null, null, '*#776F7202', null],
+  [null, null, null, null, null, '*#6c640002', null],
   [null, null, '*#00FF0008', null, null, null, null],
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
