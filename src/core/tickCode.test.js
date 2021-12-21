@@ -62,6 +62,24 @@ describe('core/tickCode', () => {
         ],
       );
     });
+
+    it('updated cells at the same time, allowing them to pass each other', () => {
+      const downSignal = new Cell('*', 0x00, 0x00, 0xFF, 0x02);
+      const westSignal = new Cell('*', 0x00, 0xFF, 0x00, 0x08);
+
+      assert.deepEqual(
+        tickCode(RULES, [
+          [null, downSignal, null],
+          [null, westSignal, null],
+          [null, null, null],
+        ]),
+        [
+          [null, null, null],
+          [westSignal, downSignal, null],
+          [null, null, null],
+        ],
+      );
+    });
   });
 
   describe('grid limits', () => {

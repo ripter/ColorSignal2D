@@ -15,7 +15,7 @@ window.CODE_FILE = [
   ['*#FF00FF04', null, null, null, null, null, '*#00FF0008'],
   [null, '*#FF000002', null, null, null, null, null],
   [null, null, null, null, null, null, null],
-  [null, null, null, '*#00FF0008', null, null, null],
+  [null, null, '*#00FF0008', null, null, null, null],
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
 ];
