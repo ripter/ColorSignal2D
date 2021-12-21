@@ -54,8 +54,6 @@ export function tick(position, cell) {
   return changeset;
 }
 
-// *
-
 /**
  *  When two signals collide, merge collide2 into collide1
  * @param  {Cell} collide1
@@ -70,3 +68,8 @@ export function collide(collide1, collide2) {
 
   return collide1;
 }
+
+export default {
+  tick,
+  collide,
+};
