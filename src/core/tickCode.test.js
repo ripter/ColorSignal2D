@@ -37,9 +37,8 @@ describe('core/tickCode', () => {
     );
 
     // Tick runs the rules for every symbol on the code grid, creating a new code grid.
-    const nextGrid = tickCode(RULES, grid);
     assert.deepEqual(
-      nextGrid,
+      tickCode(RULES, grid),
       [
         [null, null, null],
         [null, null, cell],

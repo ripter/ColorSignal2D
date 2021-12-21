@@ -8,36 +8,59 @@ import { inBounds } from '../utils/inBounds.mjs';
  * @return {2DArray}
  */
 export function tickCode(RULES, codeGrid) {
-  const nextCodeGrid = JSON.parse(JSON.stringify(codeGrid));
+  const codeMap = new Map();
   const maxHeight = codeGrid.length;
   const maxWidth = codeGrid[0].length;
-  // the grid is y,x so the box needs to be height,widt for bounds checking.
+  // the grid is y,x so the box needs to be height,widht for bounds checking.
   const isCellInBounds = inBounds.bind(null, [0, 0, maxHeight, maxWidth]);
 
+  //
   // Loop over each cell in the grid.
+  // Thsi creates a new codeMap from all the changes created by the RULES.
   for (let y = 0; y < maxHeight; y += 1) {
     for (let x = 0; x < maxWidth; x += 1) {
       const cell = codeGrid[y][x];
       if (!cell) { continue; } // Skip if there is no data.
       const { symbol } = cell;
       if (!RULES[symbol]) { continue; } // Skip symbols not in the rules.
+
       // Run the Rule's tick function and get a changeset.
       const changeset = RULES[symbol].tick({ x, y }, codeGrid[y][x], codeGrid);
 
       // Update the grid based on the changeset.
       for (const change of changeset) {
+        // skip null cells.
+        if (!change.cell) { continue; }
         // skip if the change is out of bounds.
         if (!isCellInBounds([change.y, change.x])) { continue; }
-        // Check for existing cell.
-        const collide1 = nextCodeGrid[change.y][change.x];
-        const collide2 = change.cell;
+        // Combine all the cells in the map by position.
+        const key = `${change.y},${change.x}`;
+        const symbols = codeMap.get(key) ?? new Set();
+        symbols.add(change.cell);
+        codeMap.set(key, symbols);
+      }
+    }
+  }
 
-        if (collide1 && collide2) {
-          change.cell = RULES[collide1.symbol].collide(collide1, collide2);
-        }
+  //
+  // Create a new grid with all the changes.
+  const nextCodeGrid = [];
+  for (let y = 0; y < maxHeight; y += 1) {
+    nextCodeGrid[y] = []; // create a new blank row.
+    for (let x = 0; x < maxWidth; x += 1) {
+      const key = `${y},${x}`;
+      // start with empty cell.
+      nextCodeGrid[y][x] = null;
+      // skip if there is nothing to set at this position.
+      if (!codeMap.has(key)) { continue; }
 
-        // Assign the cell to the grid.
-        nextCodeGrid[change.y][change.x] = change.cell;
+      // Get the collisions and resolve them.
+      const collisions = [...codeMap.get(key)];
+      const collide1 = collisions.shift();
+      if (collisions.length > 0) {
+        nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, ...collisions);
+      } else {
+        nextCodeGrid[y][x] = collide1;
       }
     }
   }
