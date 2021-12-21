@@ -30,10 +30,10 @@ export function tickCode(RULES, codeGrid) {
         if (!isCellInBounds([change.y, change.x])) { continue; }
         // Check for existing cell.
         const collide1 = nextCodeGrid[change.y][change.x];
-        const collide2 = changeset.cell;
+        const collide2 = change.cell;
 
         if (collide1 && collide2) {
-          change.cell = RULES[collide1.symbol]?.collide(collide1, collide2);
+          change.cell = RULES[collide1.symbol].collide(collide1, collide2);
         }
 
         // Assign the cell to the grid.

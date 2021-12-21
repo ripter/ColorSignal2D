@@ -1,4 +1,4 @@
-import { tick as signalTick } from './signal.mjs';
+import { tick as signalTick, collide as signalCollide } from './signal.mjs';
 
 /**
  * Default Rules for the language.
@@ -8,5 +8,6 @@ import { tick as signalTick } from './signal.mjs';
 export const RULES = {
   '*': {
     tick: signalTick,
+    collide: signalCollide,
   },
 };

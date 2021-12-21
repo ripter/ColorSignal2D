@@ -1,5 +1,6 @@
 import { assert } from 'chai';
 
+import { Cell } from '../core/Cell.mjs';
 import { collide, tick } from './signal.mjs';
 import { textToCell } from '../utils/textToCell.mjs';
 import { BLACK, RED, WHITE } from '../consts/colors.mjs';
@@ -59,11 +60,22 @@ describe('Symbol: * ', () => {
 
   describe('collide(position, collide1, collide2)', () => {
     it('merges collide2 color with collide1', () => {
-      const actual = collide(textToCell(`${BLACK}02`), textToCell(`${RED}08`))
-      assert.equal(actual.R, 0xFF, 'Red should be 0xFF after merge.')
-      assert.equal(actual.G, 0x00, 'Green should be untouched after merge.')
-      assert.equal(actual.B, 0x00, 'Blue should be untouched after merge.')
-      assert.equal(actual.A, 0x02, 'Alpha should still be collide1.A')
+      const actual = collide(textToCell(`${BLACK}02`), textToCell(`${RED}08`));
+      assert.equal(actual.R, 0xFF, 'Red should be 0xFF after merge.');
+      assert.equal(actual.G, 0x00, 'Green should be untouched after merge.');
+      assert.equal(actual.B, 0x00, 'Blue should be untouched after merge.');
+      assert.equal(actual.A, 0x02, 'Alpha should still be collide1.A');
+    });
+
+    it('merge works on Blue, Green colors', () => {
+      const actual = collide(
+        new Cell('A', 0x00, 0xFF, 0x00, 0x04),
+        new Cell('B', 0x00, 0x00, 0xFF, 0x18),
+      );
+      assert.equal(actual.R, 0x00);
+      assert.equal(actual.G, 0xFF);
+      assert.equal(actual.B, 0xFF);
+      assert.equal(actual.A, 0x04);
     });
   });
 });

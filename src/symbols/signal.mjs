@@ -54,7 +54,7 @@ export function tick(position, cell) {
   return changeset;
 }
 
- // *
+// *
 
 /**
  *  When two signals collide, merge collide2 into collide1
@@ -63,11 +63,10 @@ export function tick(position, cell) {
  * @return {Cell} Cell to place at position after collision.
  */
 export function collide(collide1, collide2) {
-
   // Merge in the RGB colors from the other signal.
-  collide1.R = collide1.R + collide2.R;
-  collide1.G = collide1.G + collide2.G;
-  collide1.B = collide1.B + collide2.B;
+  collide1.R += collide2.R;
+  collide1.G += collide2.G;
+  collide1.B += collide2.B;
 
   return collide1;
 }

@@ -1,7 +1,6 @@
 import { assert } from 'chai';
-import sinon from 'sinon';
 
-import { Cell } from '../core/Cell.mjs';
+import { Cell } from './Cell.mjs';
 import { RULES } from '../symbols/index.mjs';
 import { tickCode } from './tickCode.mjs';
 
@@ -24,6 +23,32 @@ describe('core/tickCode', () => {
     assert.include(actual[0][1], { symbol: '*' }, 'New position has the Cell data.');
   });
 
+  it('allows a symbol to change position', () => {
+    const cell = new Cell('*', 0x00, 0xFF, 0x00, 0x04);
+    grid[1][1] = cell;
+    assert.deepEqual(
+      grid,
+      [
+        [null, null, null],
+        [null, cell, null],
+        [null, null, null],
+      ],
+      'Cell starts in the center fo a 3x3 code grid.',
+    );
+
+    // Tick runs the rules for every symbol on the code grid, creating a new code grid.
+    const nextGrid = tickCode(RULES, grid);
+    assert.deepEqual(
+      nextGrid,
+      [
+        [null, null, null],
+        [null, null, cell],
+        [null, null, null],
+      ],
+      'Cell should be the same refrence, but in a new position.',
+    );
+  });
+
   describe('collision', () => {
     it('triggers collision rule', () => {
       grid[1][0] = new Cell('*', 0x00, 0x00, 0xFF, 0x04);
@@ -34,8 +59,8 @@ describe('core/tickCode', () => {
           [null, null, null],
           [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x04), null],
           [null, null, null],
-        ]
-      )
+        ],
+      );
     });
   });
 
@@ -50,7 +75,7 @@ describe('core/tickCode', () => {
           [null, null, null],
           [null, null, null],
         ],
-        'West Moving Signal dies when it moves off the grid.'
+        'West Moving Signal dies when it moves off the grid.',
       );
     });
 
@@ -63,7 +88,7 @@ describe('core/tickCode', () => {
           [null, null, null],
           [null, null, null],
           [null, null, null],
-        ]
+        ],
       );
     });
 
@@ -76,7 +101,7 @@ describe('core/tickCode', () => {
           [null, null, null],
           [null, null, null],
           [null, null, null],
-        ]
+        ],
       );
     });
 
@@ -89,7 +114,7 @@ describe('core/tickCode', () => {
           [null, null, null],
           [null, null, null],
           [null, null, null],
-        ]
+        ],
       );
     });
   });

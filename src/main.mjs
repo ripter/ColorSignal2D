@@ -3,12 +3,21 @@ import { nextTick, render, reset } from './actions/index.mjs';
 // window.IS_RUNNING = true;
 // const FRAME_DELAY = 1; // time between frames.
 
+// window.CODE_FILE = [
+//   ['*#00550002', null, null, null, null],
+//   ['1', null, null, null, null],
+//   ['2', '*#FF00FF04', null, null, null],
+//   ['3', null, '*#F0550002', null, null],
+//   ['4', '3', '2', '1', '0'],
+// ];
 window.CODE_FILE = [
-  ['*#00550002', null, null, null, null],
-  ['1', null, null, null, null],
-  ['2', '*#FF00FF04', null, null, null],
-  ['3', null, '*#F0550002', null, null],
-  ['4', '3', '2', '1', '0'],
+  [null, null, null, null, null, null, null],
+  ['*#FF00FF04', null, null, null, null, null, '*#00FF0008'],
+  [null, '*#FF000002', null, null, null, null, null],
+  [null, null, null, null, null, null, null],
+  [null, null, null, '*#00FF0008', null, null, null],
+  [null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null],
 ];
 
 // Get the 2d Context

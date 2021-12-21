@@ -2,7 +2,7 @@ import { Cell } from '../core/Cell.mjs';
 
 /**
  * Converts symbol#RGBA into a Cell
- * @param  {String} rawText 
+ * @param  {String} rawText
  * @return {Cell}
  */
 export function textToCell(rawText) {
