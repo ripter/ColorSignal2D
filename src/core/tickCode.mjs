@@ -26,8 +26,16 @@ export function tickCode(RULES, codeGrid) {
 
       // Update the grid based on the changeset.
       for (const change of changeset) {
+        // skip if the change is out of bounds.
         if (!isCellInBounds([change.y, change.x])) { continue; }
-        // TODO: Check for collision.
+        // Check for existing cell.
+        const collide1 = nextCodeGrid[change.y][change.x];
+        const collide2 = changeset.cell;
+
+        if (collide1 && collide2) {
+          change.cell = RULES[collide1.symbol]?.collide(collide1, collide2);
+        }
+
         // Assign the cell to the grid.
         nextCodeGrid[change.y][change.x] = change.cell;
       }

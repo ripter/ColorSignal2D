@@ -1,101 +1,96 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
+import { Cell } from '../core/Cell.mjs';
+import { RULES } from '../symbols/index.mjs';
 import { tickCode } from './tickCode.mjs';
 
 describe('core/tickCode', () => {
-  let rules; let
-    grid;
+  let grid;
+
   beforeEach(() => {
-    rules = {
-      '*': {
-        tick: sinon.fake.returns([
-          { x: 1, y: 0, cell: { symbol: '*' } },
-          { x: 0, y: 0, cell: null },
-        ]),
-      },
-    };
     grid = [
-      [{ symbol: '*', color: 0xFFFFFF, config: 0x00 }, null, null],
+      [null, null, null],
+      [null, null, null],
       [null, null, null],
     ];
   });
 
-  it('passes args to tick rule', () => {
-    // Run the rules on the grid.
-    tickCode(rules, grid);
-    assert.isTrue(rules['*'].tick.calledOnce);
-    assert.include(rules['*'].tick.args[0][0], { x: 0, y: 0 }, 'First arg is the position');
-    assert.include(rules['*'].tick.args[0][1], { symbol: '*' }, 'Second arg is the cell data');
-    assert.equal(rules['*'].tick.args[0][2], grid, 'Third arg is a refrence to the grid.');
-  });
-
   it('returns a new grid', () => {
-    const actual = tickCode(rules, grid);
+    grid[0][0] = new Cell('*', 0x00, 0x00, 0xFF, 0x04);
+    const actual = tickCode(RULES, grid);
     assert.exists(actual);
     assert.equal(actual[0][0], null, 'Old position has been cleared.');
     assert.include(actual[0][1], { symbol: '*' }, 'New position has the Cell data.');
   });
 
+  describe('collision', () => {
+    it('triggers collision rule', () => {
+      grid[1][0] = new Cell('*', 0x00, 0x00, 0xFF, 0x04);
+      grid[1][2] = new Cell('*', 0x00, 0xFF, 0x00, 0x08);
+      assert.deepEqual(
+        tickCode(RULES, grid),
+        [
+          [null, null, null],
+          [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x04), null],
+          [null, null, null],
+        ]
+      )
+    });
+  });
+
   describe('grid limits', () => {
     it('left bounds', () => {
-      const actual = tickCode({
-        '*': {
-          tick: () => [
-            { x: 0, y: 0, cell: null }, // remove the existing.
-            { x: -1, y: 0, cell: { symbol: '*' } }, // attempt to move off the left side.
-          ],
-        },
-      }, grid);
-      assert.deepEqual(actual, [
-        [null, null, null],
-        [null, null, null],
-      ]);
+      // Signal moving West
+      grid[1][0] = new Cell('*', 0xFF, 0x00, 0x00, 0x08);
+      assert.deepEqual(
+        tickCode(RULES, grid),
+        [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ],
+        'West Moving Signal dies when it moves off the grid.'
+      );
     });
 
     it('right bounds', () => {
-      const actual = tickCode({
-        '*': {
-          tick: () => [
-            { x: 0, y: 0, cell: null }, // remove the existing.
-            { x: 4, y: 0, cell: { symbol: '*' } }, // attempt to move off the right side.
-          ],
-        },
-      }, grid);
-      assert.deepEqual(actual, [
-        [null, null, null],
-        [null, null, null],
-      ]);
+      // Signal moving East
+      grid[1][2] = new Cell('*', 0xFF, 0x00, 0x00, 0x04);
+      assert.deepEqual(
+        tickCode(RULES, grid),
+        [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ]
+      );
     });
 
     it('top bounds', () => {
-      const actual = tickCode({
-        '*': {
-          tick: () => [
-            { x: 0, y: 0, cell: null }, // remove the existing.
-            { x: 0, y: -1, cell: { symbol: '*' } }, // attempt to move off the top side.
-          ],
-        },
-      }, grid);
-      assert.deepEqual(actual, [
-        [null, null, null],
-        [null, null, null],
-      ]);
+      // Signal moving North
+      grid[0][1] = new Cell('*', 0xFF, 0x00, 0x00, 0x01);
+      assert.deepEqual(
+        tickCode(RULES, grid),
+        [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ]
+      );
     });
 
     it('bottom bounds', () => {
-      const actual = tickCode({
-        '*': {
-          tick: () => [
-            { x: 0, y: 0, cell: null }, // remove the existing.
-            { x: 0, y: 2, cell: { symbol: '*' } }, // attempt to move off the bottom side.
-          ],
-        },
-      }, grid);
-      assert.deepEqual(actual, [
-        [null, null, null],
-        [null, null, null],
-      ]);
+      // Signal moving South
+      grid[2][1] = new Cell('*', 0xFF, 0x00, 0x00, 0x02);
+      assert.deepEqual(
+        tickCode(RULES, grid),
+        [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ]
+      );
     });
   });
 });
