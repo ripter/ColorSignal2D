@@ -15,12 +15,20 @@ describe('core/tickCode', () => {
     ];
   });
 
-  it('returns a new grid', () => {
-    grid[0][0] = new Cell('*', 0x00, 0x00, 0xFF, 0x04);
-    const actual = tickCode(RULES, grid);
-    assert.exists(actual);
-    assert.equal(actual[0][0], null, 'Old position has been cleared.');
-    assert.include(actual[0][1], { symbol: '*' }, 'New position has the Cell data.');
+  it('symbols without a tick function are not removed', () => {
+    const cell = new Cell('Ѡ', 0x00, 0x00, 0xFF, 0x04);
+    assert.deepEqual(
+      tickCode(RULES, [
+        [null, null, null],
+        [null, cell, null],
+        [null, null, null],
+      ]),
+      [
+        [null, null, null],
+        [null, cell, null],
+        [null, null, null],
+      ]
+    )
   });
 
   it('allows a symbol to change position', () => {

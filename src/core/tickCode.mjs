@@ -25,7 +25,16 @@ export function tickCode(RULES, codeGrid) {
       if (!RULES[symbol]) { continue; } // Skip symbols not in the rules.
 
       // Run the Rule's tick function and get a changeset.
-      const changeset = RULES[symbol].tick({ x, y }, codeGrid[y][x], codeGrid);
+      let changeset = [];
+      const { tick } = RULES[symbol];
+      if (tick) {
+        changeset = RULES[symbol].tick({ x, y }, codeGrid[y][x], codeGrid);
+      } else {
+        changeset.push({
+          x, y,
+          cell,
+        });
+      }
 
       // Update the grid based on the changeset.
       for (const change of changeset) {
