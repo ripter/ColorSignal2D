@@ -1,6 +1,9 @@
 # ColorSignal2D
 A 2D Programming language based on colored signals.
 
+Signals are data in motion! In a human language you write a line that assigns data to a variable. Then you pass that variable to a function. In ColorSignals2D you add moving signals and direct them to hit the function you want. Instead of passing a variable, you collide the data in.
+
+
 The code and data are represented on a 2D grid using a symbol (UTF-8 charecter code) and a [RGBA](https://en.wikipedia.org/wiki/RGBA_color_model) Color value. This allows the entire state of the program to be stored and loaded as text. A color display can display the symbols in their color, while a text or coloreless display can render `Symbol#RGBA`.
 
 
@@ -23,10 +26,14 @@ Using the Alpha Channel as a symbol configuration reduces the number of unique s
 
 This does mean symbols can not use the full 32 bit color for data. Instead they keep 24 bits for data and 8 bits for config.
 
+What about the far more common non-signal symbols? What will they do with the 24 bits "not for config"? Do they use it for internal state? Like a counter could use R for the starting value and B for the current value. But what about symbols like split? The color can act like a colored filter, with the config acting as config.
+
+### Ɨ Split Symbol
+
+When a Signal collides with the Ɨ split symbol, the signal's color is "stored" in the split symbols's color. On tick, if the split symbol has an Alpha value, it emits two signals. One with the original Alpha value, and another with the next direction alpha value.
+
+
 ## Order of Operations.
 
-Should the grid update one cell at a time, with each cell acting on a slightly updated grid? Or does each cell run at the same time as every other cell? Only basing their actions based on the current grid with no consideration of other singal updates?
+In theory, every cell in the grid updates at the same time. This means a south moving signal above an east or west moving signal will not collide. The horizontal travling signal will move out of the way at the same time the South signal moves into it's old position.
 
-Take the case of a South moving signal palced above a west moving signal. If the grid updates one cell at a time, from top to bottom, left to right, then the South signal will collide with the West signal. This would result in a new West Signal. If every cell runs asyncronuasly then the South signal should find an empty cell because the West signal as moved. This would put every signal at the same speed of change.
-
-I like the idea of everything happening at the same time, even if it is harder t code.

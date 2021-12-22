@@ -9,6 +9,13 @@ export class Cell {
     this.data = new Uint8ClampedArray([R, G, B, A]);
   }
 
+  /**
+   * Returns a new Cell with the same values as this Cell.
+   */
+  clone() {
+    return new Cell(this.symbol, this.R, this.G, this.B, this.A);
+  }
+
   get R() {
     return this.data[0];
   }
