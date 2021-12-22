@@ -1,5 +1,5 @@
 import signal from './signal.mjs';
-import output from './output.mjs';
+import { collide as outputCollide } from './output.mjs';
 
 /**
  * Default Rules for the language.
@@ -8,5 +8,9 @@ import output from './output.mjs';
  */
 export const RULES = {
   '*': signal,
-  Ѡ: output,
+  Ѡ: {
+    collide: outputCollide.bind(null, (chars) => {
+      window.OUTPUT.push(...chars);
+    }),
+  },
 };

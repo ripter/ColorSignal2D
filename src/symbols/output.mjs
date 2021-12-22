@@ -1,6 +1,11 @@
-export function collide(self, ...collisions) {
-  const OUTPUT = window.OUTPUT || [];
-
+/**
+ * Pushes out up to three chars based on RGB values.
+ * @param  {Function} callback function called with the char array.
+ * @param  {Cell}   self
+ * @param  {[Cell]}   collisions
+ * @return {Cell} Cell to survive on the code grid.
+ */
+export function collide(callback, self, ...collisions) {
   // add each color to the output.
   for (const collision of collisions) {
     const chars = [];
@@ -8,14 +13,9 @@ export function collide(self, ...collisions) {
     if (collision.G) { chars.push(collision.G); }
     if (collision.B) { chars.push(collision.B); }
 
-    for (const char of chars) {
-      OUTPUT.push(String.fromCharCode(char));
-    }
+    // Output to the callback.
+    callback(chars.map((char) => String.fromCharCode(char)));
   }
 
   return self;
 }
-
-export default {
-  collide,
-};
