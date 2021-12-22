@@ -1,4 +1,5 @@
 import signal from './signal.mjs';
+import output from './output.mjs';
 
 /**
  * Default Rules for the language.
@@ -7,4 +8,5 @@ import signal from './signal.mjs';
  */
 export const RULES = {
   '*': signal,
+  'Ѡ': output,
 };

@@ -65,7 +65,7 @@ export function tickCode(RULES, codeGrid) {
 
       // Get the collisions and resolve them.
       const collisions = [...codeMap.get(key)];
-      const collide1 = collisions.shift();
+      const collide1 = collisions.pop();
       if (collisions.length > 0) {
         nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, ...collisions);
       } else {

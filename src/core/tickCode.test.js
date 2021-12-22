@@ -64,7 +64,7 @@ describe('core/tickCode', () => {
         tickCode(RULES, grid),
         [
           [null, null, null],
-          [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x04), null],
+          [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x08), null],
           [null, null, null],
         ],
       );

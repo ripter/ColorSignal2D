@@ -1,17 +1,10 @@
 import { nextTick, render, reset } from './actions/index.mjs';
+import DEFAULT_CODE from './DEFAULT_CODE.mjs';
 
 // window.IS_RUNNING = true;
 // const FRAME_DELAY = 1; // time between frames.
-
-window.CODE_FILE = [
-  [null, null, null, null, null, '*#68686c02', null],
-  ['*#FF00FF04', null, null, null, null, '*#6C6F2002', null],
-  [null, '*#FF000002', null, null, null, '*#776F7202', null],
-  [null, null, null, null, null, '*#6c640002', null],
-  [null, null, '*#00FF0008', null, null, null, null],
-  [null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, null],
-];
+window.OUTPUT = [];
+window.CODE_FILE = DEFAULT_CODE;
 
 // Get the 2d Context
 window.ctx = window.c.getContext('2d');
