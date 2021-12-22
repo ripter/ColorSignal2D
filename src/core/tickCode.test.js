@@ -64,7 +64,22 @@ describe('core/tickCode', () => {
         tickCode(RULES, grid),
         [
           [null, null, null],
-          [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x08), null],
+          [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x04), null],
+          [null, null, null],
+        ],
+      );
+    });
+
+    it('triggers collision on the rule from inital codeGrid', () => {
+      assert.deepEqual(
+        tickCode(RULES, [
+          [null, null, null],
+          [null, new Cell('Ɨ', 0, 0, 0, 0 ),  new Cell('*', 0x00, 0x74, 0xD9, 0x08)],
+          [null, null, null],
+        ]),
+        [
+          [null, null, null],
+          [null, new Cell('Ɨ', 0x00, 0x74, 0xD9, 0x08), null],
           [null, null, null],
         ],
       );

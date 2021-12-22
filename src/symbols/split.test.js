@@ -22,7 +22,7 @@ describe('symbol/split', () => {
     assert.deepEqual(actual.A, 0x04, 'Alpha');
   });
 
-  it('outputs two signals when it has an Alpha value on tick', () => {
+  it('SOUTH splits to the WEST', () => {
     const changeset = tick(
       {x: 1, y: 1},
       new Cell('Ɨ', 0xFF, 0x85, 0x1B, SOUTH)
@@ -37,8 +37,9 @@ describe('symbol/split', () => {
     assert.equal(changeset[1].y, 2);
     assert.deepEqual(changeset[1].cell, new Cell('*',0xFF, 0x85, 0x1B, SOUTH));
 
+    // new signal is moving East.
     assert.equal(changeset[2].x, 0);
     assert.equal(changeset[2].y, 1);
-    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, EAST));
+    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, WEST));
   });
 });

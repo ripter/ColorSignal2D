@@ -72,4 +72,5 @@ export function collide(collide1, collide2) {
 export default {
   tick,
   collide,
+  collidePriority: 0, // lowest priority, use any other collide before this one.
 };

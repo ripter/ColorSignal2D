@@ -59,14 +59,18 @@ export function tickCode(RULES, codeGrid) {
     nextCodeGrid[y] = []; // create a new blank row.
     for (let x = 0; x < maxWidth; x += 1) {
       const key = `${y},${x}`;
+      const cell = codeGrid[y][x];
       // start with empty cell.
       nextCodeGrid[y][x] = null;
       // skip if there is nothing to set at this position.
       if (!codeMap.has(key)) { continue; }
 
       // Get the collisions and resolve them.
-      const collisions = [...codeMap.get(key)];
-      const collide1 = collisions.pop();
+      // If it collided with an existing cell, then that cell becomes collide1
+      const collisions = [...codeMap.get(key)]
+      collisions.sort((a, b) => RULES[b.symbol].collidePriority - RULES[a.symbol].collidePriority);
+      const collide1 = collisions.shift();
+
       if (collisions.length > 0) {
         nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, ...collisions);
       } else {

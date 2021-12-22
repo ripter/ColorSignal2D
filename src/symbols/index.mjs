@@ -1,6 +1,6 @@
 import signal from './signal.mjs';
 import split from './split.mjs';
-import { collide as outputCollide } from './output.mjs';
+import output from './output.mjs';
 
 
 /**
@@ -11,9 +11,10 @@ import { collide as outputCollide } from './output.mjs';
 export const RULES = {
   '*': signal,
   Ѡ: {
-    collide: outputCollide.bind(null, (chars) => {
+    ...output,
+    collide: output.collide.bind(null, (chars) => {
       window.OUTPUT.push(...chars);
     }),
   },
-  'Ɨ': split, 
+  'Ɨ': split,
 };

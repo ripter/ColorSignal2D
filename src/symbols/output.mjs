@@ -19,3 +19,8 @@ export function collide(callback, self, ...collisions) {
 
   return self;
 }
+
+export default {
+  collide,
+  collidePriority: 100, // Higher priority in collision.
+}

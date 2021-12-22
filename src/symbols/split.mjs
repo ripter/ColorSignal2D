@@ -45,6 +45,11 @@ export function tick(position, cell) {
       signalB.x -= 1;
       signalB.cell.A = WEST;
       break;
+    case WEST:
+      signalA.x -= 1;
+      signalB.y += 1;
+      signalB.cell.A = NORTH;
+      break;
     case NORTH:
       signalA.y -= 1;
       signalB.x += 1;
@@ -54,11 +59,6 @@ export function tick(position, cell) {
       signalA.x += 1;
       signalB.y -= 1;
       signalB.cell.A = SOUTH;
-      break;
-    case WEST:
-      signalA.x -= 1;
-      signalB.y += 1;
-      signalB.cell.A = NORTH;
       break;
   }
 
@@ -73,4 +73,5 @@ export function tick(position, cell) {
 export default {
   collide,
   tick,
+  collidePriority: 1, // Common priority in collision.
 }
