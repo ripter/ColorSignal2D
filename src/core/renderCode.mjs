@@ -29,8 +29,15 @@ export function renderCode(ctx, cellWidth, cellHeight, codeGrid) {
       const cell = codeGrid[y][x];
       if (!cell) { continue; } // Skip if there is no data at this position.
       const { symbol } = cell;
-      ctx.fillStyle = colorFromCell(cell);
-      ctx.fillText(symbol, x * cellWidth, (y + 1) * cellHeight);
+      const color = colorFromCell(cell);
+
+      if (color === '#000000') {
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.strokeText(symbol, x * cellWidth, (y + 1) * cellHeight);
+      } else {
+        ctx.fillStyle = color;
+        ctx.fillText(symbol, x * cellWidth, (y + 1) * cellHeight);
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ describe('renderCode', () => {
       fillRect: sinon.fake(),
       beginPath: sinon.fake(),
       closePath: sinon.fake(),
+      strokeText: sinon.fake(),
       stroke: sinon.fake(),
       moveTo: sinon.fake(),
       lineTo: sinon.fake(),
@@ -51,5 +52,16 @@ describe('renderCode', () => {
     ctx.fillRect.args[0][1].should.equal(0);
     ctx.fillRect.args[0][2].should.equal(16);
     ctx.fillRect.args[0][3].should.equal(16);
+  });
+
+  it('renders black symbols with an outline', () => {
+    renderCode(ctx, 8, 8, [
+      [{
+        symbol: '*', R: 0x00, G: 0x00, B: 0x00, A: 0x04,
+      }],
+    ]);
+
+    assert.equal(ctx.strokeStyle, '#FFFFFF', 'Stroke is white');
+    assert.equal(ctx.strokeText.args[0][0], '*', 'Symbol rendered as text');
   });
 });
