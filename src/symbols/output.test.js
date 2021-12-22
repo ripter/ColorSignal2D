@@ -15,7 +15,7 @@ describe('symbls/output', () => {
     assert.equal(resultCell, outputCell);
     assert.deepEqual(
       global.window.OUTPUT,
-      ['H','e','l']
+      ['H', 'e', 'l'],
     );
   });
 });

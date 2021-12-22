@@ -8,5 +8,5 @@ import output from './output.mjs';
  */
 export const RULES = {
   '*': signal,
-  'Ѡ': output,
+  Ѡ: output,
 };

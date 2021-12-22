@@ -31,7 +31,8 @@ export function tickCode(RULES, codeGrid) {
         changeset = RULES[symbol].tick({ x, y }, codeGrid[y][x], codeGrid);
       } else {
         changeset.push({
-          x, y,
+          x,
+          y,
           cell,
         });
       }

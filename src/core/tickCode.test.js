@@ -27,8 +27,8 @@ describe('core/tickCode', () => {
         [null, null, null],
         [null, cell, null],
         [null, null, null],
-      ]
-    )
+      ],
+    );
   });
 
   it('allows a symbol to change position', () => {

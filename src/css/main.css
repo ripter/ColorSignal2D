@@ -1,3 +1,5 @@
+@import "./utils.css";
+
 body {
   display: flex;
   flex-direction: column;
@@ -7,15 +9,4 @@ td {
   height: 24px;
   width: 24px;
   border: thin solid red;
-}
-
-
-
-
-.width-100pc {
-  width: 100%;
-}
-
-.font-size-large {
-  font-size: 21px;
 }
