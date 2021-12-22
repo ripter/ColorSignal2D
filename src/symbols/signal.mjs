@@ -8,10 +8,10 @@
  *   0b0100 - East    0x04
  *   0b1000 - West    0x08
  */
-const NORTH = 0b0001;
-const SOUTH = 0b0010;
-const EAST = 0b0100;
-const WEST = 0b1000;
+export const NORTH = 0b0001;
+export const SOUTH = 0b0010;
+export const EAST = 0b0100;
+export const WEST = 0b1000;
 
 /**
  * Performs a tick, moving the signal in a direction.

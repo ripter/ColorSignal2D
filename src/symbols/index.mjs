@@ -1,5 +1,7 @@
 import signal from './signal.mjs';
+import split from './split.mjs';
 import { collide as outputCollide } from './output.mjs';
+
 
 /**
  * Default Rules for the language.
@@ -13,4 +15,5 @@ export const RULES = {
       window.OUTPUT.push(...chars);
     }),
   },
+  'Ɨ': split, 
 };

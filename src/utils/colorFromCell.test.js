@@ -8,4 +8,10 @@ describe('colorFromCell', () => {
       '#FF0000',
     );
   });
+  it('Converts Black', () => {
+    assert.equal(
+      colorFromCell({ R: 0x00, G: 0x00, B: 0x00 }),
+      '#000000',
+    );
+  });
 });
