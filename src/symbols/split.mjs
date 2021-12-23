@@ -54,7 +54,7 @@ export function tick(position, cell) {
       break;
     case EAST:
       signalA.x += 1;
-      signalB.y -= 1;
+      signalB.y += 1;
       signalB.cell.A = SOUTH;
       break;
     default:
