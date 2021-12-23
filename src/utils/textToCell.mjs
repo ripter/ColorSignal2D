@@ -7,7 +7,7 @@ import { Cell } from '../core/Cell.mjs';
  */
 export function textToCell(rawText) {
   const split = rawText.split('#');
-  const color = split.length === 2 ? split[1] : 'FFFFFF00';
+  const color = split.length === 2 ? split[1] : '00000000';
 
   return new Cell(
     split[0],

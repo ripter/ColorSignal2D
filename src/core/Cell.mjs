@@ -16,6 +16,17 @@ export class Cell {
     return new Cell(this.symbol, this.R, this.G, this.B, this.A);
   }
 
+  /**
+   * "Clears" the color from the cell by setting everything to 0.
+   */
+  clear() {
+    this.R = 0;
+    this.G = 0;
+    this.B = 0;
+    this.A = 0;
+    return this;
+  }
+
   get R() {
     return this.data[0];
   }
