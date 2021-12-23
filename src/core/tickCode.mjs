@@ -71,7 +71,7 @@ export function tickCode(RULES, codeGrid) {
       const collide1 = collisions.shift();
 
       if (collisions.length > 0) {
-        nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, ...collisions);
+        nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, collisions);
       } else {
         nextCodeGrid[y][x] = collide1;
       }

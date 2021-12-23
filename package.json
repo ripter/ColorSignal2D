@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "test": "make test",
+    "test": "npx mocha src/**/**.test.js",
     "lint": "make lint",
     "start": "make all"
   },

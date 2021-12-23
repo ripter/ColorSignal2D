@@ -1,6 +1,7 @@
+import { absorb } from './abilities/absorb.mjs';
+import output from './output.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
-import output from './output.mjs';
 
 /**
  * Default Rules for the language.
@@ -8,12 +9,18 @@ import output from './output.mjs';
  * Each symbol can have a tick and/or collide function.
  */
 export const RULES = {
-  '*': signal,
+  '*': {
+    ...signal,
+    collide: absorb,
+  },
   Ѡ: {
     ...output,
     collide: output.collide.bind(null, (chars) => {
       window.OUTPUT.push(...chars);
     }),
   },
-  Ɨ: split,
+  Ɨ: {
+    ...split,
+    collide: absorb,
+  },
 };

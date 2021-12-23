@@ -1,27 +1,16 @@
 import { assert } from 'chai';
 
 import { Cell } from '../core/Cell.mjs';
-import { collide, tick } from './split.mjs';
+import { tick } from './split.mjs';
 import {
   NORTH, SOUTH, EAST, WEST,
 } from './signal.mjs';
 
 describe('symbol/split', () => {
   let splitCell;
-  let eastSignal;
 
   beforeEach(() => {
     splitCell = new Cell('Ɨ', 0x00, 0x00, 0x00, 0x00);
-    eastSignal = new Cell('*', 0xFF, 0x85, 0x1B, 0x04);
-  });
-
-  it('stores the signal value on collide', () => {
-    const actual = collide(splitCell, eastSignal);
-    assert.equal(actual.symbol, 'Ɨ');
-    assert.deepEqual(actual.R, 0xFF, 'Red');
-    assert.deepEqual(actual.G, 0x85, 'Green');
-    assert.deepEqual(actual.B, 0x1B, 'Blue');
-    assert.deepEqual(actual.A, 0x04, 'Alpha');
   });
 
   it('SOUTH splits to the WEST', () => {
@@ -99,5 +88,4 @@ describe('symbol/split', () => {
     assert.equal(changeset[2].y, 2);
     assert.deepEqual(changeset[2].cell, new Cell('*', 0xFF, 0x85, 0x1B, SOUTH));
   });
-
 });
