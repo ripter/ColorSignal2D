@@ -1,7 +1,8 @@
-import { Cell } from '../core/Cell.mjs'
+import { Cell } from '../core/Cell.mjs';
 import { Change } from '../core/Change.mjs';
-import { NORTH, SOUTH, EAST, WEST } from './signal.mjs';
-
+import {
+  NORTH, SOUTH, EAST, WEST,
+} from './signal.mjs';
 
 /**
  * On collision, Signal Color is added to self Color
@@ -10,7 +11,6 @@ import { NORTH, SOUTH, EAST, WEST } from './signal.mjs';
  * @return {Cell}
  */
 export function collide(self, ...collisions) {
-
   for (const cell of collisions) {
     self.R += cell.R;
     self.G += cell.G;
@@ -20,9 +20,6 @@ export function collide(self, ...collisions) {
 
   return self;
 }
-
-
-
 
 /**
  * Performs a tick, emitting two signals if there is an Alpha value.
@@ -60,6 +57,8 @@ export function tick(position, cell) {
       signalB.y -= 1;
       signalB.cell.A = SOUTH;
       break;
+    default:
+      //  ignore
   }
 
   return [
@@ -74,4 +73,4 @@ export default {
   collide,
   tick,
   collidePriority: 1, // Common priority in collision.
-}
+};

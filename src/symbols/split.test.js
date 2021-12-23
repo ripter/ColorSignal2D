@@ -2,12 +2,14 @@ import { assert } from 'chai';
 
 import { Cell } from '../core/Cell.mjs';
 import { collide, tick } from './split.mjs';
-import { NORTH, SOUTH, EAST, WEST } from './signal.mjs';
-
-
+import {
+  NORTH, SOUTH, EAST, WEST,
+} from './signal.mjs';
 
 describe('symbol/split', () => {
-  let splitCell, splitChange, eastSignal, southSignal;
+  let splitCell;
+  let eastSignal;
+
   beforeEach(() => {
     splitCell = new Cell('Ɨ', 0x00, 0x00, 0x00, 0x00);
     eastSignal = new Cell('*', 0xFF, 0x85, 0x1B, 0x04);
@@ -24,8 +26,8 @@ describe('symbol/split', () => {
 
   it('SOUTH splits to the WEST', () => {
     const changeset = tick(
-      {x: 1, y: 1},
-      new Cell('Ɨ', 0xFF, 0x85, 0x1B, SOUTH)
+      { x: 1, y: 1 },
+      new Cell('Ɨ', 0xFF, 0x85, 0x1B, SOUTH),
     );
     assert.equal(changeset.length, 3, 'Three changes, the Split Symbol and two Signals');
     assert.equal(changeset[0].x, 1);
@@ -35,18 +37,18 @@ describe('symbol/split', () => {
     // original was a South moving signal, so this signal should still be south.
     assert.equal(changeset[1].x, 1);
     assert.equal(changeset[1].y, 2);
-    assert.deepEqual(changeset[1].cell, new Cell('*',0xFF, 0x85, 0x1B, SOUTH));
+    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, SOUTH));
 
     // new signal is moving East.
     assert.equal(changeset[2].x, 0);
     assert.equal(changeset[2].y, 1);
-    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, WEST));
+    assert.deepEqual(changeset[2].cell, new Cell('*', 0xFF, 0x85, 0x1B, WEST));
   });
 
   it('NORTH splits to the EAST', () => {
     const changeset = tick(
-      {x: 1, y: 1},
-      new Cell('Ɨ', 0xFF, 0x85, 0x1B, NORTH)
+      { x: 1, y: 1 },
+      new Cell('Ɨ', 0xFF, 0x85, 0x1B, NORTH),
     );
     assert.equal(changeset.length, 3, 'Three changes, the Split Symbol and two Signals');
     assert.equal(changeset[0].x, 1);
@@ -56,18 +58,18 @@ describe('symbol/split', () => {
     // original was a South moving signal, so this signal should still be south.
     assert.equal(changeset[1].x, 1);
     assert.equal(changeset[1].y, 0);
-    assert.deepEqual(changeset[1].cell, new Cell('*',0xFF, 0x85, 0x1B, NORTH));
+    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, NORTH));
 
     // new signal is moving East.
     assert.equal(changeset[2].x, 2);
     assert.equal(changeset[2].y, 1);
-    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, EAST));
+    assert.deepEqual(changeset[2].cell, new Cell('*', 0xFF, 0x85, 0x1B, EAST));
   });
 
   it('WEST splits to the NORTH', () => {
     const changeset = tick(
-      {x: 1, y: 1},
-      new Cell('Ɨ', 0xFF, 0x85, 0x1B, WEST)
+      { x: 1, y: 1 },
+      new Cell('Ɨ', 0xFF, 0x85, 0x1B, WEST),
     );
     assert.equal(changeset.length, 3, 'Three changes, the Split Symbol and two Signals');
     assert.equal(changeset[0].x, 1);
@@ -77,12 +79,11 @@ describe('symbol/split', () => {
     // original was a South moving signal, so this signal should still be south.
     assert.equal(changeset[1].x, 0);
     assert.equal(changeset[1].y, 1);
-    assert.deepEqual(changeset[1].cell, new Cell('*',0xFF, 0x85, 0x1B, WEST));
+    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, WEST));
 
     // new signal is moving East.
     assert.equal(changeset[2].x, 1);
     assert.equal(changeset[2].y, 0);
-    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, NORTH));
+    assert.deepEqual(changeset[2].cell, new Cell('*', 0xFF, 0x85, 0x1B, NORTH));
   });
-
 });

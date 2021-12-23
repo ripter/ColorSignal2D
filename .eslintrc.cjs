@@ -18,5 +18,6 @@ module.exports = {
     'no-continue': ['off'],
     'no-param-reassign': ['off'],
     'no-restricted-syntax': ['off'],
+    'import/no-named-as-default-member': ['off'],
   },
 };

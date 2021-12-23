@@ -1,4 +1,3 @@
-
 /**
  * A Change to a code grid.
  * @type {Change}

@@ -2,7 +2,6 @@ import signal from './signal.mjs';
 import split from './split.mjs';
 import output from './output.mjs';
 
-
 /**
  * Default Rules for the language.
  * Each key is the language symbol used in the code grid.
@@ -16,5 +15,5 @@ export const RULES = {
       window.OUTPUT.push(...chars);
     }),
   },
-  'Ɨ': split,
+  Ɨ: split,
 };

@@ -74,7 +74,7 @@ describe('core/tickCode', () => {
       assert.deepEqual(
         tickCode(RULES, [
           [null, null, null],
-          [null, new Cell('Ɨ', 0, 0, 0, 0 ),  new Cell('*', 0x00, 0x74, 0xD9, 0x08)],
+          [null, new Cell('Ɨ', 0, 0, 0, 0), new Cell('*', 0x00, 0x74, 0xD9, 0x08)],
           [null, null, null],
         ]),
         [
