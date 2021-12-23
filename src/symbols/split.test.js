@@ -42,4 +42,47 @@ describe('symbol/split', () => {
     assert.equal(changeset[2].y, 1);
     assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, WEST));
   });
+
+  it('NORTH splits to the EAST', () => {
+    const changeset = tick(
+      {x: 1, y: 1},
+      new Cell('Ɨ', 0xFF, 0x85, 0x1B, NORTH)
+    );
+    assert.equal(changeset.length, 3, 'Three changes, the Split Symbol and two Signals');
+    assert.equal(changeset[0].x, 1);
+    assert.equal(changeset[0].y, 1);
+    assert.deepEqual(changeset[0].cell, splitCell, 'Color is reset to black after creating signals');
+
+    // original was a South moving signal, so this signal should still be south.
+    assert.equal(changeset[1].x, 1);
+    assert.equal(changeset[1].y, 0);
+    assert.deepEqual(changeset[1].cell, new Cell('*',0xFF, 0x85, 0x1B, NORTH));
+
+    // new signal is moving East.
+    assert.equal(changeset[2].x, 2);
+    assert.equal(changeset[2].y, 1);
+    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, EAST));
+  });
+
+  it('WEST splits to the NORTH', () => {
+    const changeset = tick(
+      {x: 1, y: 1},
+      new Cell('Ɨ', 0xFF, 0x85, 0x1B, WEST)
+    );
+    assert.equal(changeset.length, 3, 'Three changes, the Split Symbol and two Signals');
+    assert.equal(changeset[0].x, 1);
+    assert.equal(changeset[0].y, 1);
+    assert.deepEqual(changeset[0].cell, splitCell, 'Color is reset to black after creating signals');
+
+    // original was a South moving signal, so this signal should still be south.
+    assert.equal(changeset[1].x, 0);
+    assert.equal(changeset[1].y, 1);
+    assert.deepEqual(changeset[1].cell, new Cell('*',0xFF, 0x85, 0x1B, WEST));
+
+    // new signal is moving East.
+    assert.equal(changeset[2].x, 1);
+    assert.equal(changeset[2].y, 0);
+    assert.deepEqual(changeset[2].cell, new Cell('*',0xFF, 0x85, 0x1B, NORTH));
+  });
+
 });
