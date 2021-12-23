@@ -1,6 +1,6 @@
 import { render } from './render.mjs';
-import { tickCode } from '../core/tickCode.mjs';
 import { RULES } from '../symbols/index.mjs';
+import { tickCode } from '../core/tickCode.mjs';
 
 /**
  Performs a Tick on window.code, overriding the old state.

@@ -1,7 +1,7 @@
 import { Cell } from '../core/Cell.mjs';
 import { Change } from '../core/Change.mjs';
 import {
-  NORTH, SOUTH, EAST, WEST,
+  EAST, NORTH, SOUTH, WEST,
 } from './signal.mjs';
 
 /**

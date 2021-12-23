@@ -1,3 +1,5 @@
+import { Change } from '../core/Change.mjs';
+
 /**
  * Signal Symbol
  * Moves in a direction carrying a color value.
@@ -22,36 +24,27 @@ export const WEST = 0b1000;
  */
 export function tick(position, cell) {
   const { x, y } = position;
-  const { A } = cell;
-  const changeset = [];
-  const delta = {
-    x: 0, y: 0,
-  };
+  const self = new Change(x, y, cell);
 
   // Get the direction from the config.
-  if (A === NORTH) {
-    delta.y -= 1;
-  } else if (A === SOUTH) {
-    delta.y += 1;
-  } else if (A === EAST) {
-    delta.x += 1;
-  } else if (A === WEST) {
-    delta.x -= 1;
+  switch (self.cell.A) {
+    case NORTH:
+      self.y -= 1;
+      break;
+    case SOUTH:
+      self.y += 1;
+      break;
+    case EAST:
+      self.x += 1;
+      break;
+    case WEST:
+      self.x -= 1;
+      break;
+    default:
+      // ignore
   }
 
-  // Remove it from the old position.
-  changeset.push({
-    ...position,
-    cell: null,
-  });
-  // Add the cell in the new position.
-  changeset.push({
-    x: x + delta.x,
-    y: y + delta.y,
-    cell,
-  });
-
-  return changeset;
+  return [self];
 }
 
 /**

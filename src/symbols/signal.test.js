@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 
+import { BLACK, RED, WHITE } from '../consts/colors.mjs';
 import { Cell } from '../core/Cell.mjs';
 import { collide, tick } from './signal.mjs';
 import { textToCell } from '../utils/textToCell.mjs';
-import { BLACK, RED, WHITE } from '../consts/colors.mjs';
 
 describe('Symbol: * ', () => {
   // should(); // Give everything .should
@@ -22,7 +22,6 @@ describe('Symbol: * ', () => {
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 1, cell: null },
         { x: 1, y: 0, cell },
       ]);
     });
@@ -32,7 +31,6 @@ describe('Symbol: * ', () => {
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 1, cell: null },
         { x: 1, y: 2, cell },
       ]);
     });
@@ -42,7 +40,6 @@ describe('Symbol: * ', () => {
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 1, cell: null },
         { x: 2, y: 1, cell },
       ]);
     });
@@ -52,7 +49,6 @@ describe('Symbol: * ', () => {
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 1, cell: null },
         { x: 0, y: 1, cell },
       ]);
     });

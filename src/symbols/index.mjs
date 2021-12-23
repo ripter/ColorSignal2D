@@ -1,8 +1,8 @@
 import { absorb } from './abilities/absorb.mjs';
+import mirror from './mirror.mjs';
 import output from './output.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
-import mirror from './mirror.mjs';
 
 /**
  * Default Rules for the language.
