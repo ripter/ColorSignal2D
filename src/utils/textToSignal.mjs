@@ -1,15 +1,15 @@
-import { Cell } from '../core/Cell.mjs';
+import { Signal } from '../core/Signal.mjs';
 
 /**
- * Converts symbol#RGBA into a Cell
+ * Converts symbol#RGBA into a Signal
  * @param  {String} rawText
- * @return {Cell}
+ * @return {Signal}
  */
-export function textToCell(rawText) {
+export function textToSignal(rawText) {
   const split = rawText.split('#');
   const color = split.length === 2 ? split[1] : '00000000';
 
-  return new Cell(
+  return new Signal(
     split[0],
     // Convert each pair of chars as an 8bit hex value.
     parseInt(color.substring(0, 2), 16), // Red

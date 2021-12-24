@@ -14,10 +14,10 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
  * Performs a tick, moving the signal in a direction.
- * @param  {{x, y}} position - Cell's position in the code grid.
- * @param  {Cell} cell - The cell at position in the code grid.
- * @param  {[[Cell]]} codeGrid - Grid running the code.
- * @return {[[Cell]]} A new code grid created from the result of ticking parameters.
+ * @param  {{x, y}} position - Signal's position in the code grid.
+ * @param  {Signal} cell - The cell at position in the code grid.
+ * @param  {[[Signal]]} codeGrid - Grid running the code.
+ * @return {[[Signal]]} A new code grid created from the result of ticking parameters.
  */
 export function tick(position, cell) {
   const { x, y } = position;
@@ -39,9 +39,9 @@ export function tick(position, cell) {
 
 /**
  *  When two signals collide, merge collide2 into collide1
- * @param  {Cell} collide1
- * @param  {Cell} collide2
- * @return {Cell} Cell to place at position after collision.
+ * @param  {Signal} collide1
+ * @param  {Signal} collide2
+ * @return {Signal} Signal to place at position after collision.
  */
 export function collide(collide1, collide2) {
   // Merge in the RGB colors from the other signal.

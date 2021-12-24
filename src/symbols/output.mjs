@@ -1,9 +1,9 @@
 /**
  * Pushes out up to three chars based on RGB values.
  * @param  {Function} callback function called with the char array.
- * @param  {Cell}   self
- * @param  {[Cell]}   collisions
- * @return {Cell} Cell to survive on the code grid.
+ * @param  {Signal}   self
+ * @param  {[Signal]}   collisions
+ * @return {Signal} Signal to survive on the code grid.
  */
 export function collide(callback, self, ...collisions) {
   // add each color to the output.

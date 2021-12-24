@@ -1,4 +1,4 @@
-import { Cell } from '../core/Cell.mjs';
+import { Signal } from '../core/Signal.mjs';
 import { Change } from '../core/Change.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { absorb } from './abilities/absorb.mjs';

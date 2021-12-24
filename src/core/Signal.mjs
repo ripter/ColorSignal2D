@@ -1,19 +1,19 @@
 /**
- * Cell value used in a code grid.
+ * Signal value used in a code grid.
  * Contains a Symbol and (RGBA) Color.
- * @type {Cell}
+ * @type {Signal}
  */
-export class Cell {
+export class Signal {
   constructor(symbol, R, G, B, A) {
     this.symbol = symbol;
     this.data = new Uint8ClampedArray([R, G, B, A]);
   }
 
   /**
-   * Returns a new Cell with the same values as this Cell.
+   * Returns a new Signal with the same values as this Signal.
    */
   clone() {
-    return new Cell(this.symbol, this.R, this.G, this.B, this.A);
+    return new Signal(this.symbol, this.R, this.G, this.B, this.A);
   }
 
   /**
@@ -60,4 +60,4 @@ export class Cell {
   }
 }
 
-// window.Cell = Cell;
+// window.Signal = Signal;

@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { Cell } from '../core/Cell.mjs';
+import { Signal } from '../core/Signal.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { tick } from './mirror.mjs';
 
@@ -9,60 +9,60 @@ const {
 } = FLAG;
 
 describe('mirror', () => {
-  let mirrorCell;
+  let mirrorSignal;
   beforeEach(() => {
-    mirrorCell = new Cell('|');
+    mirrorSignal = new Signal('|');
   });
 
   it('NORTH turns into SOUTH', () => {
-    const changeset = tick({ x: 1, y: 1 }, new Cell('|', 0xFF, 0x85, 0x1B, NORTH));
+    const changeset = tick({ x: 1, y: 1 }, new Signal('|', 0xFF, 0x85, 0x1B, NORTH));
 
     assert.equal(changeset.length, 2, 'Two changes, the Mirror Symbol and the reflected Signal');
     assert.equal(changeset[0].x, 1);
     assert.equal(changeset[0].y, 1);
-    assert.deepEqual(changeset[0].cell, mirrorCell, 'Mirror is reset after tick.');
+    assert.deepEqual(changeset[0].cell, mirrorSignal, 'Mirror is reset after tick.');
 
     assert.equal(changeset[1].x, 1);
     assert.equal(changeset[1].y, 2);
-    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, SOUTH));
+    assert.deepEqual(changeset[1].cell, new Signal('*', 0xFF, 0x85, 0x1B, SOUTH));
   });
 
   it('SOUTH turns into NORTH', () => {
-    const changeset = tick({ x: 1, y: 1 }, new Cell('|', 0xFF, 0x85, 0x1B, SOUTH));
+    const changeset = tick({ x: 1, y: 1 }, new Signal('|', 0xFF, 0x85, 0x1B, SOUTH));
 
     assert.equal(changeset.length, 2, 'Two changes, the Mirror Symbol and the reflected Signal');
     assert.equal(changeset[0].x, 1);
     assert.equal(changeset[0].y, 1);
-    assert.deepEqual(changeset[0].cell, mirrorCell, 'Mirror is reset after tick.');
+    assert.deepEqual(changeset[0].cell, mirrorSignal, 'Mirror is reset after tick.');
 
     assert.equal(changeset[1].x, 1);
     assert.equal(changeset[1].y, 0);
-    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, NORTH));
+    assert.deepEqual(changeset[1].cell, new Signal('*', 0xFF, 0x85, 0x1B, NORTH));
   });
 
   it('WEST turns into EAST', () => {
-    const changeset = tick({ x: 1, y: 1 }, new Cell('|', 0xFF, 0x85, 0x1B, WEST));
+    const changeset = tick({ x: 1, y: 1 }, new Signal('|', 0xFF, 0x85, 0x1B, WEST));
 
     assert.equal(changeset.length, 2, 'Two changes, the Mirror Symbol and the reflected Signal');
     assert.equal(changeset[0].x, 1);
     assert.equal(changeset[0].y, 1);
-    assert.deepEqual(changeset[0].cell, mirrorCell, 'Mirror is reset after tick.');
+    assert.deepEqual(changeset[0].cell, mirrorSignal, 'Mirror is reset after tick.');
 
     assert.equal(changeset[1].x, 2);
     assert.equal(changeset[1].y, 1);
-    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, EAST));
+    assert.deepEqual(changeset[1].cell, new Signal('*', 0xFF, 0x85, 0x1B, EAST));
   });
 
   it('EAST turns into WEST', () => {
-    const changeset = tick({ x: 1, y: 1 }, new Cell('|', 0xFF, 0x85, 0x1B, EAST));
+    const changeset = tick({ x: 1, y: 1 }, new Signal('|', 0xFF, 0x85, 0x1B, EAST));
 
     assert.equal(changeset.length, 2, 'Two changes, the Mirror Symbol and the reflected Signal');
     assert.equal(changeset[0].x, 1);
     assert.equal(changeset[0].y, 1);
-    assert.deepEqual(changeset[0].cell, mirrorCell, 'Mirror is reset after tick.');
+    assert.deepEqual(changeset[0].cell, mirrorSignal, 'Mirror is reset after tick.');
 
     assert.equal(changeset[1].x, 0);
     assert.equal(changeset[1].y, 1);
-    assert.deepEqual(changeset[1].cell, new Cell('*', 0xFF, 0x85, 0x1B, WEST));
+    assert.deepEqual(changeset[1].cell, new Signal('*', 0xFF, 0x85, 0x1B, WEST));
   });
 });

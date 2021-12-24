@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { Cell } from './Cell.mjs';
+import { Signal } from './Signal.mjs';
 import { RULES } from '../symbols/index.mjs';
 import { tickCode } from './tickCode.mjs';
 
@@ -16,7 +16,7 @@ describe('core/tickCode', () => {
   });
 
   it('symbols without a tick function are not removed', () => {
-    const cell = new Cell('Ѡ', 0x00, 0x00, 0xFF, 0x04);
+    const cell = new Signal('Ѡ', 0x00, 0x00, 0xFF, 0x04);
     assert.deepEqual(
       tickCode(RULES, [
         [null, null, null],
@@ -32,7 +32,7 @@ describe('core/tickCode', () => {
   });
 
   it('allows a symbol to change position', () => {
-    const cell = new Cell('*', 0x00, 0xFF, 0x00, 0x04);
+    const cell = new Signal('*', 0x00, 0xFF, 0x00, 0x04);
     grid[1][1] = cell;
     assert.deepEqual(
       grid,
@@ -41,7 +41,7 @@ describe('core/tickCode', () => {
         [null, cell, null],
         [null, null, null],
       ],
-      'Cell starts in the center fo a 3x3 code grid.',
+      'Signal starts in the center fo a 3x3 code grid.',
     );
 
     // Tick runs the rules for every symbol on the code grid, creating a new code grid.
@@ -52,19 +52,19 @@ describe('core/tickCode', () => {
         [null, null, cell],
         [null, null, null],
       ],
-      'Cell should be the same refrence, but in a new position.',
+      'Signal should be the same refrence, but in a new position.',
     );
   });
 
   describe('collision', () => {
     it('triggers collision rule', () => {
-      grid[1][0] = new Cell('*', 0x00, 0x00, 0xFF, 0x04);
-      grid[1][2] = new Cell('*', 0x00, 0xFF, 0x00, 0x08);
+      grid[1][0] = new Signal('*', 0x00, 0x00, 0xFF, 0x04);
+      grid[1][2] = new Signal('*', 0x00, 0xFF, 0x00, 0x08);
       assert.deepEqual(
         tickCode(RULES, grid),
         [
           [null, null, null],
-          [null, new Cell('*', 0x00, 0xFF, 0xFF, 0x08), null],
+          [null, new Signal('*', 0x00, 0xFF, 0xFF, 0x08), null],
           [null, null, null],
         ],
       );
@@ -74,20 +74,20 @@ describe('core/tickCode', () => {
       assert.deepEqual(
         tickCode(RULES, [
           [null, null, null],
-          [null, new Cell('Ɨ', 0, 0, 0, 0), new Cell('*', 0x00, 0x74, 0xD9, 0x08)],
+          [null, new Signal('Ɨ', 0, 0, 0, 0), new Signal('*', 0x00, 0x74, 0xD9, 0x08)],
           [null, null, null],
         ]),
         [
           [null, null, null],
-          [null, new Cell('Ɨ', 0x00, 0x74, 0xD9, 0x08), null],
+          [null, new Signal('Ɨ', 0x00, 0x74, 0xD9, 0x08), null],
           [null, null, null],
         ],
       );
     });
 
     it('updated cells at the same time, allowing them to pass each other', () => {
-      const downSignal = new Cell('*', 0x00, 0x00, 0xFF, 0x02);
-      const westSignal = new Cell('*', 0x00, 0xFF, 0x00, 0x08);
+      const downSignal = new Signal('*', 0x00, 0x00, 0xFF, 0x02);
+      const westSignal = new Signal('*', 0x00, 0xFF, 0x00, 0x08);
 
       assert.deepEqual(
         tickCode(RULES, [
@@ -107,7 +107,7 @@ describe('core/tickCode', () => {
   describe('grid limits', () => {
     it('left bounds', () => {
       // Signal moving West
-      grid[1][0] = new Cell('*', 0xFF, 0x00, 0x00, 0x08);
+      grid[1][0] = new Signal('*', 0xFF, 0x00, 0x00, 0x08);
       assert.deepEqual(
         tickCode(RULES, grid),
         [
@@ -121,7 +121,7 @@ describe('core/tickCode', () => {
 
     it('right bounds', () => {
       // Signal moving East
-      grid[1][2] = new Cell('*', 0xFF, 0x00, 0x00, 0x04);
+      grid[1][2] = new Signal('*', 0xFF, 0x00, 0x00, 0x04);
       assert.deepEqual(
         tickCode(RULES, grid),
         [
@@ -134,7 +134,7 @@ describe('core/tickCode', () => {
 
     it('top bounds', () => {
       // Signal moving North
-      grid[0][1] = new Cell('*', 0xFF, 0x00, 0x00, 0x01);
+      grid[0][1] = new Signal('*', 0xFF, 0x00, 0x00, 0x01);
       assert.deepEqual(
         tickCode(RULES, grid),
         [
@@ -147,7 +147,7 @@ describe('core/tickCode', () => {
 
     it('bottom bounds', () => {
       // Signal moving South
-      grid[2][1] = new Cell('*', 0xFF, 0x00, 0x00, 0x02);
+      grid[2][1] = new Signal('*', 0xFF, 0x00, 0x00, 0x02);
       assert.deepEqual(
         tickCode(RULES, grid),
         [

@@ -3,9 +3,9 @@
 /**
  * Absorbs te color values from cells and adds them to self.
  * Mutates self
- * @param  {Cell} self
- * @param  {[Cell]} cells
- * @return {Cell} self
+ * @param  {Signal} self
+ * @param  {[Signal]} cells
+ * @return {Signal} self
  */
 export function absorb(self, cells) {
   if (cells < 1) { return self; }
