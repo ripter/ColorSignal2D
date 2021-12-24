@@ -1,4 +1,5 @@
 import { Change } from '../core/Change.mjs';
+import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
  * Signal Symbol
@@ -10,10 +11,6 @@ import { Change } from '../core/Change.mjs';
  *   0b0100 - East    0x04
  *   0b1000 - West    0x08
  */
-export const NORTH = 0b0001;
-export const SOUTH = 0b0010;
-export const EAST = 0b0100;
-export const WEST = 0b1000;
 
 /**
  * Performs a tick, moving the signal in a direction.
@@ -27,23 +24,16 @@ export function tick(position, cell) {
   const self = new Change(x, y, cell);
 
   // Get the direction from the config.
-  switch (self.cell.A) {
-    case NORTH:
+  if (hasFlag(self.cell, FLAG.NORTH)) {
       self.y -= 1;
-      break;
-    case SOUTH:
+  } else if (hasFlag(cell, FLAG.SOUTH)) {
       self.y += 1;
-      break;
-    case EAST:
+  } else if (hasFlag(cell, FLAG.EAST)) {
       self.x += 1;
-      break;
-    case WEST:
+  } else if (hasFlag(cell, FLAG.WEST)) {
       self.x -= 1;
-      break;
-    default:
-      // ignore
   }
-
+  
   return [self];
 }
 

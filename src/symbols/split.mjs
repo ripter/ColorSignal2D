@@ -1,8 +1,6 @@
 import { Cell } from '../core/Cell.mjs';
 import { Change } from '../core/Change.mjs';
-import {
-  EAST, NORTH, SOUTH, WEST,
-} from './signal.mjs';
+import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
  * On collision, Signal Color is added to self Color
@@ -36,29 +34,22 @@ export function tick(position, cell) {
   const signalB = signalA.clone();
 
   // Use the direction to set the two signals.
-  switch (signalA.cell.A) {
-    case SOUTH:
-      signalA.y += 1;
-      signalB.x -= 1;
-      signalB.cell.A = WEST;
-      break;
-    case WEST:
-      signalA.x -= 1;
-      signalB.y -= 1;
-      signalB.cell.A = NORTH;
-      break;
-    case NORTH:
-      signalA.y -= 1;
-      signalB.x += 1;
-      signalB.cell.A = EAST;
-      break;
-    case EAST:
-      signalA.x += 1;
-      signalB.y += 1;
-      signalB.cell.A = SOUTH;
-      break;
-    default:
-      //  ignore
+  if (hasFlag(cell, FLAG.NORTH)) {
+    signalA.y -= 1;
+    signalB.x += 1;
+    signalB.cell.A = FLAG.EAST;
+  } else if (hasFlag(cell, FLAG.SOUTH)) {
+    signalA.y += 1;
+    signalB.x -= 1;
+    signalB.cell.A = FLAG.WEST;
+  } else if (hasFlag(cell, FLAG.EAST)) {
+    signalA.x += 1;
+    signalB.y += 1;
+    signalB.cell.A = FLAG.SOUTH;
+  } else if (hasFlag(cell, FLAG.WEST)) {
+    signalA.x -= 1;
+    signalB.y -= 1;
+    signalB.cell.A = FLAG.NORTH;
   }
 
   return [

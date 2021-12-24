@@ -1,7 +1,5 @@
 import { Change } from '../core/Change.mjs';
-import {
-  EAST, NORTH, SOUTH, WEST,
-} from './signal.mjs';
+import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 export function tick(position, cell) {
   const { x, y } = position;
@@ -14,25 +12,18 @@ export function tick(position, cell) {
   signal.cell.symbol = '*';
 
   // Use the direction to set the two signals.
-  switch (self.cell.A) {
-    case NORTH:
+  if (hasFlag(self.cell, FLAG.NORTH)) {
       signal.y += 1;
-      signal.cell.A = SOUTH;
-      break;
-    case SOUTH:
+      signal.cell.A = FLAG.SOUTH;
+  } else if (hasFlag(cell, FLAG.SOUTH)) {
       signal.y -= 1;
-      signal.cell.A = NORTH;
-      break;
-    case EAST:
+      signal.cell.A = FLAG.NORTH;
+  } else if (hasFlag(cell, FLAG.EAST)) {
       signal.x -= 1;
-      signal.cell.A = WEST;
-      break;
-    case WEST:
+      signal.cell.A = FLAG.WEST;
+  } else if (hasFlag(cell, FLAG.WEST)) {
       signal.x += 1;
-      signal.cell.A = EAST;
-      break;
-    default:
-      //  ignore
+      signal.cell.A = FLAG.EAST;
   }
 
   // reset self.

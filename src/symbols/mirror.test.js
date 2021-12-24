@@ -1,10 +1,10 @@
 import { assert } from 'chai';
 
 import { Cell } from '../core/Cell.mjs';
+import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { tick } from './mirror.mjs';
-import {
-  EAST, SOUTH, NORTH, WEST,
-} from './signal.mjs';
+
+const { EAST, SOUTH, NORTH, WEST } = FLAG;
 
 describe('mirror', () => {
   let mirrorCell;

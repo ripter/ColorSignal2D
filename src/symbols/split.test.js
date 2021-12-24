@@ -1,10 +1,10 @@
 import { assert } from 'chai';
 
 import { Cell } from '../core/Cell.mjs';
+import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { tick } from './split.mjs';
-import {
-  NORTH, SOUTH, EAST, WEST,
-} from './signal.mjs';
+
+const { NORTH, SOUTH, EAST, WEST } = FLAG;
 
 describe('symbol/split', () => {
   let splitCell;
