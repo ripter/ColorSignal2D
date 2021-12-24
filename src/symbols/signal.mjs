@@ -25,13 +25,13 @@ export function tick(position, cell) {
 
   // Get the direction from the config.
   if (hasFlag(FLAG.NORTH, cell)) {
-      self.y -= 1;
+    self.y -= 1;
   } else if (hasFlag(FLAG.SOUTH, cell)) {
-      self.y += 1;
+    self.y += 1;
   } else if (hasFlag(FLAG.EAST, cell)) {
-      self.x += 1;
+    self.x += 1;
   } else if (hasFlag(FLAG.WEST, cell)) {
-      self.x -= 1;
+    self.x -= 1;
   }
 
   return [self];

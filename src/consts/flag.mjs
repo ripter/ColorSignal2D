@@ -1,13 +1,12 @@
-
 /**
  * Flags sorted on ALpha channel.
  */
 export const FLAG = {
-  NORTH:  0b00000001,
-  SOUTH:  0b00000010,
-  EAST:   0b00000100,
-  WEST:   0b00001000,
-  SET:    0b00010000,
+  NORTH: 0b00000001,
+  SOUTH: 0b00000010,
+  EAST: 0b00000100,
+  WEST: 0b00001000,
+  SET: 0b00010000,
 };
 
 /**

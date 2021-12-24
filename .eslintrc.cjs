@@ -19,5 +19,6 @@ module.exports = {
     'no-param-reassign': ['off'],
     'no-restricted-syntax': ['off'],
     'import/no-named-as-default-member': ['off'],
+    'no-bitwise': ['off'],
   },
 };

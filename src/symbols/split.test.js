@@ -4,7 +4,9 @@ import { Cell } from '../core/Cell.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { tick } from './split.mjs';
 
-const { NORTH, SOUTH, EAST, WEST } = FLAG;
+const {
+  NORTH, SOUTH, EAST, WEST,
+} = FLAG;
 
 describe('symbol/split', () => {
   let splitCell;

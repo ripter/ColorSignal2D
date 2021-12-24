@@ -2,7 +2,7 @@ import {
   nextTick, render, reset, togglePlay,
 } from './actions/index.mjs';
 // import DEFAULT_CODE from './DEFAULT_CODE.mjs';
-import DEFAULT_CODE from './examples/mirror.mjs';
+import DEFAULT_CODE from './examples/split.mjs';
 
 // window.IS_RUNNING = true;
 // const FRAME_DELAY = 1; // time between frames.

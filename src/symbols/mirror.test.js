@@ -4,7 +4,9 @@ import { Cell } from '../core/Cell.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { tick } from './mirror.mjs';
 
-const { EAST, SOUTH, NORTH, WEST } = FLAG;
+const {
+  EAST, SOUTH, NORTH, WEST,
+} = FLAG;
 
 describe('mirror', () => {
   let mirrorCell;

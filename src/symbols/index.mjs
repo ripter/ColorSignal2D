@@ -3,6 +3,7 @@ import mirror from './mirror.mjs';
 import output from './output.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
+import ifRule from './if.mjs';
 
 /**
  * Default Rules for the language.
@@ -28,4 +29,5 @@ export const RULES = {
     ...mirror,
     collide: absorb,
   },
+  ʃ: ifRule,
 };

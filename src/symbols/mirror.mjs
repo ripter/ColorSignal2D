@@ -13,17 +13,17 @@ export function tick(position, cell) {
 
   // Use the direction to set the two signals.
   if (hasFlag(FLAG.NORTH, cell)) {
-      signal.y += 1;
-      signal.cell.A = FLAG.SOUTH;
+    signal.y += 1;
+    signal.cell.A = FLAG.SOUTH;
   } else if (hasFlag(FLAG.SOUTH, cell)) {
-      signal.y -= 1;
-      signal.cell.A = FLAG.NORTH;
+    signal.y -= 1;
+    signal.cell.A = FLAG.NORTH;
   } else if (hasFlag(FLAG.EAST, cell)) {
-      signal.x -= 1;
-      signal.cell.A = FLAG.WEST;
+    signal.x -= 1;
+    signal.cell.A = FLAG.WEST;
   } else if (hasFlag(FLAG.WEST, cell)) {
-      signal.x += 1;
-      signal.cell.A = FLAG.EAST;
+    signal.x += 1;
+    signal.cell.A = FLAG.EAST;
   }
 
   // reset self.
