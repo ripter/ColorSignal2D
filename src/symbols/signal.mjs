@@ -24,16 +24,16 @@ export function tick(position, cell) {
   const self = new Change(x, y, cell);
 
   // Get the direction from the config.
-  if (hasFlag(self.cell, FLAG.NORTH)) {
+  if (hasFlag(FLAG.NORTH, cell)) {
       self.y -= 1;
-  } else if (hasFlag(cell, FLAG.SOUTH)) {
+  } else if (hasFlag(FLAG.SOUTH, cell)) {
       self.y += 1;
-  } else if (hasFlag(cell, FLAG.EAST)) {
+  } else if (hasFlag(FLAG.EAST, cell)) {
       self.x += 1;
-  } else if (hasFlag(cell, FLAG.WEST)) {
+  } else if (hasFlag(FLAG.WEST, cell)) {
       self.x -= 1;
   }
-  
+
   return [self];
 }
 

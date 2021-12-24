@@ -8,16 +8,6 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
  * @param  {[Cell]} collisions
  * @return {Cell}
  */
-export function collide(self, ...collisions) {
-  for (const cell of collisions) {
-    self.R += cell.R;
-    self.G += cell.G;
-    self.B += cell.B;
-    self.A += cell.A;
-  }
-
-  return self;
-}
 
 /**
  * Performs a tick, emitting two signals if there is an Alpha value.
@@ -34,19 +24,19 @@ export function tick(position, cell) {
   const signalB = signalA.clone();
 
   // Use the direction to set the two signals.
-  if (hasFlag(cell, FLAG.NORTH)) {
+  if (hasFlag(FLAG.NORTH, cell)) {
     signalA.y -= 1;
     signalB.x += 1;
     signalB.cell.A = FLAG.EAST;
-  } else if (hasFlag(cell, FLAG.SOUTH)) {
+  } else if (hasFlag(FLAG.SOUTH, cell)) {
     signalA.y += 1;
     signalB.x -= 1;
     signalB.cell.A = FLAG.WEST;
-  } else if (hasFlag(cell, FLAG.EAST)) {
+  } else if (hasFlag(FLAG.EAST, cell)) {
     signalA.x += 1;
     signalB.y += 1;
     signalB.cell.A = FLAG.SOUTH;
-  } else if (hasFlag(cell, FLAG.WEST)) {
+  } else if (hasFlag(FLAG.WEST, cell)) {
     signalA.x -= 1;
     signalB.y -= 1;
     signalB.cell.A = FLAG.NORTH;
@@ -61,7 +51,6 @@ export function tick(position, cell) {
 }
 
 export default {
-  collide,
   tick,
   collidePriority: 1, // Common priority in collision.
 };

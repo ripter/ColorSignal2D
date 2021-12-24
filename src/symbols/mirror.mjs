@@ -12,16 +12,16 @@ export function tick(position, cell) {
   signal.cell.symbol = '*';
 
   // Use the direction to set the two signals.
-  if (hasFlag(self.cell, FLAG.NORTH)) {
+  if (hasFlag(FLAG.NORTH, cell)) {
       signal.y += 1;
       signal.cell.A = FLAG.SOUTH;
-  } else if (hasFlag(cell, FLAG.SOUTH)) {
+  } else if (hasFlag(FLAG.SOUTH, cell)) {
       signal.y -= 1;
       signal.cell.A = FLAG.NORTH;
-  } else if (hasFlag(cell, FLAG.EAST)) {
+  } else if (hasFlag(FLAG.EAST, cell)) {
       signal.x -= 1;
       signal.cell.A = FLAG.WEST;
-  } else if (hasFlag(cell, FLAG.WEST)) {
+  } else if (hasFlag(FLAG.WEST, cell)) {
       signal.x += 1;
       signal.cell.A = FLAG.EAST;
   }

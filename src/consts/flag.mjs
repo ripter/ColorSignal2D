@@ -12,10 +12,10 @@ export const FLAG = {
 
 /**
  * Returns true if the cell's alpha value has all the flags.
- * @param  {Cell}  cell
  * @param  {byte}  flags
+ * @param  {Cell}  cell
  * @return {Boolean}
  */
-export function hasFlag(cell, flag) {
+export function hasFlag(flag, cell) {
   return !!(cell.A & flag);
 }
