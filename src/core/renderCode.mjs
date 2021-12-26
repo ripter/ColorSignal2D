@@ -1,4 +1,4 @@
-import { colorFromSignal } from '../utils/colorFromSignal.mjs';
+import { colorFromSymbol } from '../utils/colorFromSymbol.mjs';
 /**
  Renders each cell on the Grid as Text.
  */
@@ -29,7 +29,7 @@ export function renderCode(ctx, cellWidth, cellHeight, codeGrid) {
       const cell = codeGrid[y][x];
       if (!cell) { continue; } // Skip if there is no data at this position.
       const { symbol } = cell;
-      const color = colorFromSignal(cell);
+      const color = colorFromSymbol(cell);
 
       if (color === '#000000') {
         ctx.strokeStyle = '#FFFFFF';

@@ -12,7 +12,7 @@ function padValue(val) {
  * @param  {{R, G, B}} cell
  * @return {String}
  */
-export function colorFromSignal(cell) {
+export function colorFromSymbol(cell) {
   const R = padValue(cell.R);
   const G = padValue(cell.G);
   const B = padValue(cell.B);

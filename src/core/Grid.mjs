@@ -1,4 +1,4 @@
-import { getKey } from './getKey';
+import { getKey } from './getKey.mjs';
 
 /**
  * Class to make working with the 2D grid easier.
@@ -15,7 +15,7 @@ export class Grid {
    * Returns the item at the grid location.
    * @param  {Number} x
    * @param  {Number} y
-   * @return {Signal | null}
+   * @return {Set<Symbol> | null}
    */
   at(x, y) {
     const key = getKey(x, y);
@@ -25,9 +25,16 @@ export class Grid {
     return null;
   }
 
-
-  addSignal(x, y, cell) {
+  /**
+   * Adds the Symbol to the grid at x,y
+   * @param {Number} x
+   * @param {Number} y
+   * @param {Cell} cell
+   */
+  addSymbol(x, y, cell) {
     const key = getKey(x, y);
-    const symbols = codeMap.get(key) ?? new Set();
+    const symbols = this.data.get(key) ?? new Set();
+    symbols.add(cell);
+    this.data.set(key, symbols);
   }
 }

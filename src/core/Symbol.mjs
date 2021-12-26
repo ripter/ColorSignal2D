@@ -1,19 +1,19 @@
 /**
- * Signal value used in a code grid.
+ * Symbol value used in a code grid.
  * Contains a Symbol and (RGBA) Color.
- * @type {Signal}
+ * @type {Symbol}
  */
-export class Signal {
+export class Symbol {
   constructor(symbol, R, G, B, A) {
     this.symbol = symbol;
     this.data = new Uint8ClampedArray([R, G, B, A]);
   }
 
   /**
-   * Returns a new Signal with the same values as this Signal.
+   * Returns a new Symbol with the same values as this Symbol.
    */
   clone() {
-    return new Signal(this.symbol, this.R, this.G, this.B, this.A);
+    return new Symbol(this.symbol, this.R, this.G, this.B, this.A);
   }
 
   /**
@@ -60,4 +60,4 @@ export class Signal {
   }
 }
 
-// window.Signal = Signal;
+// window.Symbol = Symbol;
