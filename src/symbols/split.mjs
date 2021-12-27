@@ -20,6 +20,7 @@ export function tick(x, y, codeSymbol) {
   // Skip if there is no Alpha value.
   if (!codeSymbol.A) { return [new GridCell(x, y, codeSymbol)]; }
 
+  // Create the two signals
   const signalA = new GridCell(x, y, codeSymbol.clone());
   signalA.value.symbol = '*';
   const signalB = signalA.clone();
@@ -43,9 +44,11 @@ export function tick(x, y, codeSymbol) {
     signalB.value.A = FLAG.NORTH;
   }
 
+  // Reset ourself.
+  codeSymbol.clear();
   return [
     // replace self with a cleared data version.
-    new GridCell(x, y, new CodeSymbol(codeSymbol.symbol, 0x00, 0x00, 0x00, 0x00)),
+    new GridCell(x, y, codeSymbol),
     signalA,
     signalB,
   ];
