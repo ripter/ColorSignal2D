@@ -1,20 +1,27 @@
 /**
  * Returns val with format 0xXX.
- * @param  {8-bit byte} val               [description]
- * @return {string}     [description]
+ * @param  {8-bit byte} val
+ * @return {string} 0x00 - 0xFF
  */
-function padValue(val) {
+export function padValue(val) {
   return (val < 0x0F ? '0' : '') + (val === 0 ? '0' : val.toString(16));
 }
 
 /**
  * Returns a CSS Color String from the cell's R,G,B values.
- * @param  {{R, G, B}} cell
+ * @param  {{R, G, B, A}} Symbol
+ * @param {Boolean} includeAlpha
  * @return {String}
  */
-export function colorFromSymbol(cell) {
-  const R = padValue(cell.R);
-  const G = padValue(cell.G);
-  const B = padValue(cell.B);
-  return `#${R}${G}${B}`.toUpperCase();
+export function colorFromSymbol(symbol, includeAlpha = false) {
+  const R = padValue(symbol.R);
+  const G = padValue(symbol.G);
+  const B = padValue(symbol.B);
+  const A = padValue(symbol.A ?? 0x00);
+  const rgb = `#${R}${G}${B}`.toUpperCase();
+
+  if (!includeAlpha) {
+    return rgb;
+  }
+  return rgb + A;
 }

@@ -1,3 +1,6 @@
+import { colorFromSymbol } from '../utils/colorFromSymbol.mjs';
+
+
 /**
  * Symbol value used in a code grid.
  * Contains a Symbol and (RGBA) Color.
@@ -25,6 +28,14 @@ export class Symbol {
     this.B = 0;
     this.A = 0;
     return this;
+  }
+
+  /**
+   * Returns the Symbol in a string format.
+   * @return {String} - *#RRGGBBAA
+   */
+  toString() {
+    return this.symbol + colorFromSymbol(this, true);
   }
 
   get R() {

@@ -14,4 +14,10 @@ describe('colorFromSymbol', () => {
       '#000000',
     );
   });
+  it('Converts with Alpha', () => {
+    assert.equal(
+      colorFromSymbol({ R: 0xFF, G: 0x85, B: 0x1B, A: 0x04 }, true),
+      '#FF851B04',
+    );
+  });
 });
