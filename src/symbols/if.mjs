@@ -1,15 +1,15 @@
-import { Symbol } from '../core/Symbol.mjs';
+import { CodeSymbol } from '../core/CodeSymbol.mjs';
 import { Change } from '../core/Change.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { absorb } from './abilities/absorb.mjs';
 
 export function collide(self, collisions) {
-  const setSymbols = collisions.filter(hasFlag.bind(null, FLAG.SET));
+  const setCodeSymbols = collisions.filter(hasFlag.bind(null, FLAG.SET));
 
   // Reset to the set signal.
-  if (setSymbols.length > 0) {
+  if (setCodeSymbols.length > 0) {
     self.clear(); // clear out any existing value.
-    absorb(self, setSymbols); // absorb all of the set values.
+    absorb(self, setCodeSymbols); // absorb all of the set values.
     self.A = 0; // clear the alpha color.
   }
 

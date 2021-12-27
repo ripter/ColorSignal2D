@@ -2,9 +2,9 @@ import { Change } from '../core/Change.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
- * Symbol Symbol
+ * CodeSymbol CodeSymbol
  * Moves in a direction carrying a color value.
- * Triggers a collision when it collides with another Symbol.
+ * Triggers a collision when it collides with another CodeSymbol.
  * Alpha Config:
  *   0b0001 - North   0x01
  *   0b0010 - South   0x02
@@ -14,10 +14,10 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
  * Performs a tick, moving the signal in a direction.
- * @param  {{x, y}} position - Symbol's position in the code grid.
- * @param  {Symbol} cell - The cell at position in the code grid.
- * @param  {[[Symbol]]} codeGrid - Grid running the code.
- * @return {[[Symbol]]} A new code grid created from the result of ticking parameters.
+ * @param  {{x, y}} position - CodeSymbol's position in the code grid.
+ * @param  {CodeSymbol} cell - The cell at position in the code grid.
+ * @param  {[[CodeSymbol]]} codeGrid - Grid running the code.
+ * @return {[[CodeSymbol]]} A new code grid created from the result of ticking parameters.
  */
 export function tick(position, cell) {
   const { x, y } = position;
@@ -39,9 +39,9 @@ export function tick(position, cell) {
 
 /**
  *  When two signals collide, merge collide2 into collide1
- * @param  {Symbol} collide1
- * @param  {Symbol} collide2
- * @return {Symbol} Symbol to place at position after collision.
+ * @param  {CodeSymbol} collide1
+ * @param  {CodeSymbol} collide2
+ * @return {CodeSymbol} CodeSymbol to place at position after collision.
  */
 export function collide(collide1, collide2) {
   // Merge in the RGB colors from the other signal.

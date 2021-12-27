@@ -1,9 +1,9 @@
 /**
  * Pushes out up to three chars based on RGB values.
  * @param  {Function} callback function called with the char array.
- * @param  {Symbol}   self
- * @param  {[Symbol]}   collisions
- * @return {Symbol} Symbol to survive on the code grid.
+ * @param  {CodeSymbol}   self
+ * @param  {[CodeSymbol]}   collisions
+ * @return {CodeSymbol} CodeSymbol to survive on the code grid.
  */
 export function collide(callback, self, ...collisions) {
   // add each color to the output.

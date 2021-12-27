@@ -28,7 +28,7 @@ describe('renderCode', () => {
       }],
     ]);
     assert.equal(ctx.fillStyle, '#FF0000', 'Color is set from RGB values');
-    assert.equal(ctx.fillText.args[0][0], '*', 'Symbol rendered as text');
+    assert.equal(ctx.fillText.args[0][0], '*', 'CodeSymbol rendered as text');
   });
 
   it('renders text from the bottom so the top line is visible.', () => {
@@ -62,6 +62,6 @@ describe('renderCode', () => {
     ]);
 
     assert.equal(ctx.strokeStyle, '#FFFFFF', 'Stroke is white');
-    assert.equal(ctx.strokeText.args[0][0], '*', 'Symbol rendered as text');
+    assert.equal(ctx.strokeText.args[0][0], '*', 'CodeSymbol rendered as text');
   });
 });

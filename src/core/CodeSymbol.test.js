@@ -1,11 +1,11 @@
 import { assert } from 'chai';
 
-import { Symbol } from './Symbol.mjs'
+import { CodeSymbol } from './CodeSymbol.mjs'
 
-describe('core/Symbol', () => {
+describe('core/CodeSymbol', () => {
   let symbol;
   beforeEach(() => {
-    symbol = new Symbol('*', 0xFF, 0x85, 0x1B, 0x04);
+    symbol = new CodeSymbol('*', 0xFF, 0x85, 0x1B, 0x04);
   });
 
   it('.toString()', () => {

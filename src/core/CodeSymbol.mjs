@@ -1,22 +1,22 @@
-import { colorFromSymbol } from '../utils/colorFromSymbol.mjs';
+import { colorFromColor } from '../utils/colorFromColor.mjs';
 
 
 /**
- * Symbol value used in a code grid.
- * Contains a Symbol and (RGBA) Color.
- * @type {Symbol}
+ * CodeSymbol value used in a code grid.
+ * Contains a CodeSymbol and (RGBA) Color.
+ * @type {CodeSymbol}
  */
-export class Symbol {
+export class CodeSymbol {
   constructor(symbol, R, G, B, A) {
     this.symbol = symbol;
     this.data = new Uint8ClampedArray([R, G, B, A]);
   }
 
   /**
-   * Returns a new Symbol with the same values as this Symbol.
+   * Returns a new CodeSymbol with the same values as this CodeSymbol.
    */
   clone() {
-    return new Symbol(this.symbol, this.R, this.G, this.B, this.A);
+    return new CodeSymbol(this.symbol, this.R, this.G, this.B, this.A);
   }
 
   /**
@@ -31,11 +31,11 @@ export class Symbol {
   }
 
   /**
-   * Returns the Symbol in a string format.
+   * Returns the CodeSymbol in a string format.
    * @return {String} - *#RRGGBBAA
    */
   toString() {
-    return this.symbol + colorFromSymbol(this, true);
+    return this.symbol + colorFromColor(this, true);
   }
 
   get R() {
@@ -71,4 +71,4 @@ export class Symbol {
   }
 }
 
-// window.Symbol = Symbol;
+// window.CodeSymbol = CodeSymbol;

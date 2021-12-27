@@ -1,15 +1,15 @@
-import { Symbol } from '../core/Symbol.mjs';
+import { CodeSymbol } from '../core/CodeSymbol.mjs';
 
 /**
- * Converts symbol#RGBA into a Symbol
+ * Converts symbol#RGBA into a CodeSymbol
  * @param  {String} rawText
- * @return {Symbol}
+ * @return {CodeSymbol}
  */
-export function textToSymbol(rawText) {
+export function textToCodeSymbol(rawText) {
   const split = rawText.split('#');
   const color = split.length === 2 ? split[1] : '00000000';
 
-  return new Symbol(
+  return new CodeSymbol(
     split[0],
     // Convert each pair of chars as an 8bit hex value.
     parseInt(color.substring(0, 2), 16), // Red

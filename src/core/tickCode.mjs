@@ -20,7 +20,7 @@ export function tickCode(RULES, codeGrid) {
   const maxHeight = codeGrid.length;
   const maxWidth = codeGrid[0].length;
   // the grid is y,x so the box needs to be height,widht for bounds checking.
-  const isSymbolInBounds = inBounds.bind(null, [0, 0, maxHeight, maxWidth]);
+  const isCodeSymbolInBounds = inBounds.bind(null, [0, 0, maxHeight, maxWidth]);
 
   //
   // Loop over each cell in the grid.
@@ -50,7 +50,7 @@ export function tickCode(RULES, codeGrid) {
         // skip null cells.
         if (!change.cell) { continue; }
         // skip if the change is out of bounds.
-        if (!isSymbolInBounds([change.y, change.x])) { continue; }
+        if (!isCodeSymbolInBounds([change.y, change.x])) { continue; }
         // Combine all the cells in the map by position.
         const key = `${change.y},${change.x}`;
         const symbols = codeMap.get(key) ?? new Set();

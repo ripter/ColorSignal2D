@@ -1,3 +1,4 @@
+import { CodeSymbol } from './CodeSymbol.mjs';
 import { getKey } from './getKey.mjs';
 
 /**
@@ -38,7 +39,7 @@ export class Grid {
   }
 
   /**
-   * Adds the Symbol to the grid at x,y
+   * Adds the CodeSymbol to the grid at x,y
    * @param {Number} x
    * @param {Number} y
    * @param {Object} symbol
@@ -50,15 +51,17 @@ export class Grid {
     this.data.set(key, symbols);
   }
 
+  /**
+   * Returns the Grid as 2D Array stringified.
+   * @return {String}
+   */
   toString() {
     return JSON.stringify(this.to2DArray(), (key, value) => {
-      console.log('tringify', key, ':', value);
-      if (value instanceof Symbol) {
-        return 'DELPHI';
+      if (value instanceof CodeSymbol) {
+        return value.toString();
       }
       return value;
-    }, 2);
-    // return 'Hi';
+    });
   }
 
   /**

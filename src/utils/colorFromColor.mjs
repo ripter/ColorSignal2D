@@ -9,11 +9,11 @@ export function padValue(val) {
 
 /**
  * Returns a CSS Color String from the cell's R,G,B values.
- * @param  {{R, G, B, A}} Symbol
+ * @param  {{R, G, B, A}} CodeSymbol
  * @param {Boolean} includeAlpha
  * @return {String}
  */
-export function colorFromSymbol(symbol, includeAlpha = false) {
+export function colorFromColor(symbol, includeAlpha = false) {
   const R = padValue(symbol.R);
   const G = padValue(symbol.G);
   const B = padValue(symbol.B);

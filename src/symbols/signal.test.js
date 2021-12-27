@@ -1,11 +1,11 @@
 import { assert } from 'chai';
 
 import { BLACK, RED, WHITE } from '../consts/colors.mjs';
-import { Symbol } from '../core/Symbol.mjs';
+import { CodeSymbol } from '../core/CodeSymbol.mjs';
 import { collide, tick } from './signal.mjs';
-import { textToSymbol } from '../utils/textToSymbol.mjs';
+import { textToCodeSymbol } from '../utils/textToCodeSymbol.mjs';
 
-describe('Symbol: * ', () => {
+describe('CodeSymbol: * ', () => {
   // should(); // Give everything .should
   let codeGrid;
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('Symbol: * ', () => {
 
   describe('tick(position, cell, codeGrid)', () => {
     it('moves North with Alpha 0b0001', () => {
-      const cell = textToSymbol(`*${WHITE}01`);
+      const cell = textToCodeSymbol(`*${WHITE}01`);
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
@@ -27,7 +27,7 @@ describe('Symbol: * ', () => {
     });
 
     it('moves South with Alpha 0b0010', () => {
-      const cell = textToSymbol(`*${WHITE}02`);
+      const cell = textToCodeSymbol(`*${WHITE}02`);
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
@@ -36,7 +36,7 @@ describe('Symbol: * ', () => {
     });
 
     it('moves East with Alpha 0b0100', () => {
-      const cell = textToSymbol(`*${WHITE}04`);
+      const cell = textToCodeSymbol(`*${WHITE}04`);
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
@@ -45,7 +45,7 @@ describe('Symbol: * ', () => {
     });
 
     it('moves West with Alpha 0b1000', () => {
-      const cell = textToSymbol(`*${WHITE}08`);
+      const cell = textToCodeSymbol(`*${WHITE}08`);
       const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
 
       assert.deepEqual(actual, [
@@ -56,7 +56,7 @@ describe('Symbol: * ', () => {
 
   describe('collide(position, collide1, collide2)', () => {
     it('merges collide2 color with collide1', () => {
-      const actual = collide(textToSymbol(`${BLACK}02`), textToSymbol(`${RED}08`));
+      const actual = collide(textToCodeSymbol(`${BLACK}02`), textToCodeSymbol(`${RED}08`));
       assert.equal(actual.R, 0xFF, 'Red should be 0xFF after merge.');
       assert.equal(actual.G, 0x00, 'Green should be untouched after merge.');
       assert.equal(actual.B, 0x00, 'Blue should be untouched after merge.');
@@ -65,8 +65,8 @@ describe('Symbol: * ', () => {
 
     it('merge works on Blue, Green colors', () => {
       const actual = collide(
-        new Symbol('A', 0x00, 0xFF, 0x00, 0x04),
-        new Symbol('B', 0x00, 0x00, 0xFF, 0x18),
+        new CodeSymbol('A', 0x00, 0xFF, 0x00, 0x04),
+        new CodeSymbol('B', 0x00, 0x00, 0xFF, 0x18),
       );
       assert.equal(actual.R, 0x00);
       assert.equal(actual.G, 0xFF);
