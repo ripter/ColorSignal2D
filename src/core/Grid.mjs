@@ -11,11 +11,23 @@ export class Grid {
     this.data = new Map();
   }
 
+
+  /**
+   * Returns True if there is a value at position
+   * @param  {Number}  x
+   * @param  {Number}  y
+   * @return {Boolean}
+   */
+  has(x, y) {
+    const key = getKey(x, y);
+    return this.data.has(key);
+  }
+
   /**
    * Returns the item at the grid location.
    * @param  {Number} x
    * @param  {Number} y
-   * @return {Set<Symbol> | null}
+   * @return {Set<Object> | null}
    */
   at(x, y) {
     const key = getKey(x, y);
@@ -29,12 +41,12 @@ export class Grid {
    * Adds the Symbol to the grid at x,y
    * @param {Number} x
    * @param {Number} y
-   * @param {Cell} cell
+   * @param {Object} symbol
    */
-  addSymbol(x, y, cell) {
+  add(x, y, symbol) {
     const key = getKey(x, y);
     const symbols = this.data.get(key) ?? new Set();
-    symbols.add(cell);
+    symbols.add(symbol);
     this.data.set(key, symbols);
   }
 }
