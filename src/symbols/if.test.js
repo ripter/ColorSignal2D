@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 
 import { CodeSymbol } from '../core/CodeSymbol.mjs';
-import { Change } from '../core/Change.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { collide } from './if.mjs';
 

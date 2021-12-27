@@ -14,4 +14,11 @@ describe('core/CodeSymbol', () => {
       '*#FF851B04',
     );
   });
+
+  it('props RGBA for colors values.', () => {
+    assert.equal(symbol.R, 0xFF);
+    assert.equal(symbol.G, 0x85);
+    assert.equal(symbol.B, 0x1B);
+    assert.equal(symbol.A, 0x04);
+  });
 });

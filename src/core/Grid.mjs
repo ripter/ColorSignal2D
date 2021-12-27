@@ -1,5 +1,6 @@
 import { CodeSymbol } from './CodeSymbol.mjs';
-import { getKey } from './getKey.mjs';
+import { fromKey, getKey } from './getKey.mjs';
+import { GridCell } from './GridCell.mjs';
 
 
 /**
@@ -11,6 +12,30 @@ export class Grid {
     this.width = width;
     this.height = height;
     this.data = new Map();
+  }
+
+  /**
+   * Returns an array of GridCell<Set>
+   * @return {[GridCell<Set>]}
+   */
+  get collisions() {
+    const items = [];
+    for (const [key, cell] of this.data) {
+      // items.push(key);
+      if (cell.size > 1) {
+        const [x ,y] = fromKey(key);
+        items.push(new GridCell(x, y, Array.from(cell)));
+      }
+    }
+    return items;
+  }
+
+  /**
+   * Returns true if there are collisions.
+   * @return {Boolean}
+   */
+  get hasCollisions() {
+    return this.collisions.length > 0;
   }
 
   /**

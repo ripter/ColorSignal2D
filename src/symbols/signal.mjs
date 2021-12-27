@@ -1,5 +1,6 @@
 import { GridCell } from '../core/GridCell.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
+import { absorb } from './abilities/absorb.mjs';
 
 /**
  * CodeSymbol CodeSymbol
@@ -38,17 +39,18 @@ export function tick(x, y, codeSymbol) {
 
 /**
  *  When two signals collide, merge collide2 into collide1
- * @param  {CodeSymbol} collide1
- * @param  {CodeSymbol} collide2
- * @return {CodeSymbol} CodeSymbol to place at position after collision.
+ * @param {Number} x
+ * @param {Number} y
+ * @param  {CodeSymbol} self
+ * @param  {[CodeSymbol]} collisions
+ * @return {[GridCell<CodeSymbol>]}
  */
-export function collide(collide1, collide2) {
-  // Merge in the RGB colors from the other signal.
-  collide1.R += collide2.R;
-  collide1.G += collide2.G;
-  collide1.B += collide2.B;
+export function collide(x, y, self, collisions) {
+  absorb(self, collisions);
 
-  return collide1;
+  return [
+    new GridCell(x, y, self),
+  ];
 }
 
 export default {

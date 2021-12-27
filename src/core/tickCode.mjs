@@ -1,9 +1,52 @@
-import { inBounds } from '../utils/inBounds.mjs';
+// import { inBounds } from '../utils/inBounds.mjs';
 import { Grid } from './Grid.mjs';
+import { GridCell } from './GridCell.mjs';
+import { fromKey } from './getKey.mjs';
 
-export function tickCode3(RULES, codeMap) {
+export function tickCode(RULES, codeMap) {
   // Create a new map to hold the code state.
   const nextMap = new Grid(codeMap.width, codeMap.heigth);
+  // the grid is y,x so the box needs to be height,widht for bounds checking.
+  // const isCodeSymbolInBounds = inBounds.bind(null, [0, 0, codeMap.width, codeMap.heigth]);
+
+  //
+  // Tick all the symbols
+  for (const [key, cells] of codeMap.data.entries()) {
+    for (const cell of cells) {
+      const [x, y] = fromKey(key);
+      const { symbol } = cell;
+      const { tick } = RULES[symbol];
+
+      if (tick) {
+        // tick returns a set of cells to add.
+        tick(x, y, cell, codeMap).forEach(cell => nextMap.add(cell.x, cell.y, cell.value));
+      } else {
+        // without a tick, just keep the symbol where it is.
+        nextMap.add(x, y, cell);
+      }
+    }
+  }
+
+  //
+  // Resolve all the collisions.
+  while (nextMap.hasCollisions) {
+    nextMap.collisions.forEach(cell => {
+      const collisions = [...cell.value];
+      collisions.sort((a, b) => RULES[b.symbol].collidePriority - RULES[a.symbol].collidePriority);
+      const collide1 = collisions.shift();
+
+      RULES[collide1.symbol].collide(cell.x, cell.y, collide1, collisions).forEach(cell => nextMap.add(cell.x, cell.y, cell.value));
+
+      // if (collisions.length > 0) {
+      //   // nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, collisions);
+      //
+      // } else {
+      //   nextMap.add(x, y, collide1);
+      // }
+    });
+  }
+
+  return nextMap;
 }
 
 /**
@@ -13,7 +56,7 @@ export function tickCode3(RULES, codeMap) {
  * @param  {2DArray} codeGrid
  * @return {2DArray}
  */
-export function tickCode(RULES, codeGrid) {
+export function tickCode2(RULES, codeGrid) {
   const codeMap = new Map();
   const maxHeight = codeGrid.length;
   const maxWidth = codeGrid[0].length;
@@ -34,7 +77,7 @@ export function tickCode(RULES, codeGrid) {
       let changeset = [];
       const { tick } = RULES[symbol];
       if (tick) {
-        changeset = RULES[symbol].tick({ x, y }, codeGrid[y][x], codeGrid);
+        changeset = tick({ x, y }, codeGrid[y][x], codeGrid);
       } else {
         changeset.push({
           x,

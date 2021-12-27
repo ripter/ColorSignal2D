@@ -3,10 +3,10 @@
  * @type {GridCell}
  */
 export class GridCell {
-  constructor(x, y, cell) {
+  constructor(x, y, value) {
     this.x = x;
     this.y = y;
-    this.cell = cell;
+    this.value = value;
   }
 
   /**
@@ -14,6 +14,6 @@ export class GridCell {
    * @return {GridCell}
    */
   clone() {
-    return new GridCell(this.x, this.y, this.cell.clone());
+    return new GridCell(this.x, this.y, this.value.clone());
   }
 }
