@@ -12,7 +12,6 @@ export class Grid {
     this.data = new Map();
   }
 
-
   /**
    * Returns True if there is a value at position
    * @param  {Number}  x
@@ -70,13 +69,12 @@ export class Grid {
    */
   to2DArray() {
     const grid2d = [];
-    for (let y=0; y < this.height; y++) {
+    for (let y = 0; y < this.height; y++) {
       grid2d[y] = [];
-      for (let x=0; x < this.width; x++) {
+      for (let x = 0; x < this.width; x++) {
         if (this.has(x, y)) {
           grid2d[y][x] = Array.from(this.at(x, y));
-        }
-        else {
+        } else {
           grid2d[y][x] = null;
         }
       }

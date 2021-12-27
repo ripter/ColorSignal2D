@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { CodeSymbol } from './CodeSymbol.mjs'
+import { CodeSymbol } from './CodeSymbol.mjs';
 
 describe('core/CodeSymbol', () => {
   let symbol;
@@ -11,7 +11,7 @@ describe('core/CodeSymbol', () => {
   it('.toString()', () => {
     assert.equal(
       symbol.toString(),
-      '*#FF851B04'
+      '*#FF851B04',
     );
   });
 });

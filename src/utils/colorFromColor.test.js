@@ -16,7 +16,9 @@ describe('colorFromColor', () => {
   });
   it('Converts with Alpha', () => {
     assert.equal(
-      colorFromColor({ R: 0xFF, G: 0x85, B: 0x1B, A: 0x04 }, true),
+      colorFromColor({
+        R: 0xFF, G: 0x85, B: 0x1B, A: 0x04,
+      }, true),
       '#FF851B04',
     );
   });

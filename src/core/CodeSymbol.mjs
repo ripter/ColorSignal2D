@@ -1,6 +1,5 @@
 import { colorFromColor } from '../utils/colorFromColor.mjs';
 
-
 /**
  * CodeSymbol value used in a code grid.
  * Contains a CodeSymbol and (RGBA) Color.

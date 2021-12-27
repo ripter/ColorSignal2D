@@ -14,46 +14,43 @@ describe('Grid', () => {
     assert.equal(grid.height, 3);
   });
 
-
   it('.has() returns false if there are no items at position', () => {
     assert.isFalse(grid.has(1, 1));
   });
   it('.has() returns true if there is an item at position', () => {
-    grid.add(1, 1, {name: 'Delphi'});
+    grid.add(1, 1, { name: 'Delphi' });
     assert.isTrue(grid.has(1, 1));
   });
-
 
   it('.at() returns null if no items exist', () => {
     assert.isNull(grid.at(1, 1));
   });
 
-
   it('.add() can set and .at() can get a single item', () => {
-    grid.add(1, 1, {name: 'Delphi'});
+    grid.add(1, 1, { name: 'Delphi' });
     assert.deepEqual(
       grid.at(1, 1).size,
       1,
-      'A single item at the grid position'
+      'A single item at the grid position',
     );
     assert.deepEqual(
       Array.from(grid.at(1, 1)),
-      [{name: 'Delphi'}],
+      [{ name: 'Delphi' }],
     );
   });
 
   it('.add() can add many items and .at() returns the set of values', () => {
-    grid.add(1, 1, {name: 'Delphi'});
-    grid.add(1, 1, {name: 'Chris'});
-    grid.add(1, 1, {name: 'Xiaoyan'});
+    grid.add(1, 1, { name: 'Delphi' });
+    grid.add(1, 1, { name: 'Chris' });
+    grid.add(1, 1, { name: 'Xiaoyan' });
     assert.deepEqual(
       grid.at(1, 1).size,
       3,
-      'Three items at the grid position'
+      'Three items at the grid position',
     );
     assert.deepEqual(
       Array.from(grid.at(1, 1)),
-      [{name: 'Delphi'}, {name: 'Chris'}, {name: 'Xiaoyan'}],
+      [{ name: 'Delphi' }, { name: 'Chris' }, { name: 'Xiaoyan' }],
     );
   });
 
@@ -65,17 +62,15 @@ describe('Grid', () => {
     assert.equal(grid.toString(), '[[null,null,null],[["*#0074D901"],["D#7FDBFF02","C#FF851B04","X#2ECC4008"],null],[null,null,null]]');
   });
 
-
   it('.to2DArray()', () => {
-    grid.add(1, 0, {name: 'Rose'});
-    grid.add(1, 1, {name: 'Delphi'});
-    grid.add(1, 1, {name: 'Chris'});
-    grid.add(1, 1, {name: 'Xiaoyan'});
+    grid.add(1, 0, { name: 'Rose' });
+    grid.add(1, 1, { name: 'Delphi' });
+    grid.add(1, 1, { name: 'Chris' });
+    grid.add(1, 1, { name: 'Xiaoyan' });
     assert.deepEqual(grid.to2DArray(), [
-      [null, [{name: 'Rose'}], null],
-      [null, [{name: 'Delphi'}, {name: 'Chris'}, {name: 'Xiaoyan'}], null],
+      [null, [{ name: 'Rose' }], null],
+      [null, [{ name: 'Delphi' }, { name: 'Chris' }, { name: 'Xiaoyan' }], null],
       [null, null, null],
     ]);
   });
-
 });
