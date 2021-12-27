@@ -3,7 +3,8 @@ import { Grid } from './Grid.mjs';
 
 
 export function tickCode3(RULES, codeMap) {
-  const nextMap = new Grid(codeMap.width)
+  // Create a new map to hold the code state.
+  const nextMap = new Grid(codeMap.width, codeMap.heigth);
 }
 
 

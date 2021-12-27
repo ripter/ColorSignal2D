@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 
 import { Grid } from './Grid.mjs';
+import { Symbol } from './Symbol.mjs';
 
 describe('Grid', () => {
   let grid;
@@ -54,6 +55,27 @@ describe('Grid', () => {
       Array.from(grid.at(1, 1)),
       [{name: 'Delphi'}, {name: 'Chris'}, {name: 'Xiaoyan'}],
     );
+  });
+
+  it.only('.toString()', () => {
+    grid.add(0, 1, new Symbol('*', 0x00, 0x74, 0xD9, 0x01));
+    grid.add(1, 1, new Symbol('D', 0x7F, 0xDB, 0xFF, 0x02));
+    grid.add(1, 1, new Symbol('C', 0xFF, 0x85, 0x1B, 0x04));
+    grid.add(1, 1, new Symbol('X', 0x2E, 0xCC, 0x40, 0x08));
+    assert.equal(grid.toString(), '');
+  });
+
+
+  it('.to2DArray()', () => {
+    grid.add(1, 0, {name: 'Rose'});
+    grid.add(1, 1, {name: 'Delphi'});
+    grid.add(1, 1, {name: 'Chris'});
+    grid.add(1, 1, {name: 'Xiaoyan'});
+    assert.deepEqual(grid.to2DArray(), [
+      [null, [{name: 'Rose'}], null],
+      [null, [{name: 'Delphi'}, {name: 'Chris'}, {name: 'Xiaoyan'}], null],
+      [null, null, null],
+    ]);
   });
 
 });

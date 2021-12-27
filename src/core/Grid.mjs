@@ -49,4 +49,35 @@ export class Grid {
     symbols.add(symbol);
     this.data.set(key, symbols);
   }
+
+  toString() {
+    return JSON.stringify(this.to2DArray(), (key, value) => {
+      console.log('tringify', key, ':', value);
+      if (value instanceof Symbol) {
+        return 'DELPHI';
+      }
+      return value;
+    }, 2);
+    // return 'Hi';
+  }
+
+  /**
+   * Returns the Grid as a 2D array.
+   * @return {[[Object]]}
+   */
+  to2DArray() {
+    const grid2d = [];
+    for (let y=0; y < this.height; y++) {
+      grid2d[y] = [];
+      for (let x=0; x < this.width; x++) {
+        if (this.has(x, y)) {
+          grid2d[y][x] = Array.from(this.at(x, y));
+        }
+        else {
+          grid2d[y][x] = null;
+        }
+      }
+    }
+    return grid2d;
+  }
 }
