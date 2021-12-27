@@ -1,6 +1,6 @@
 import { CodeSymbol } from '../core/CodeSymbol.mjs';
-import { Change } from '../core/Change.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
 /**
  * On collision, CodeSymbol Color is added to self Color
@@ -19,8 +19,8 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
 export function tick(position, cell) {
   const { x, y } = position;
   // Skip if there is no Alpha value.
-  if (!cell.A) { return [new Change(x, y, cell)]; }
-  const signalA = new Change(x, y, new CodeSymbol('*', cell.R, cell.G, cell.B, cell.A));
+  if (!cell.A) { return [new GridCell(x, y, cell)]; }
+  const signalA = new GridCell(x, y, new CodeSymbol('*', cell.R, cell.G, cell.B, cell.A));
   const signalB = signalA.clone();
 
   // Use the direction to set the two signals.
@@ -44,7 +44,7 @@ export function tick(position, cell) {
 
   return [
     // replace self with a cleared data version.
-    new Change(x, y, new CodeSymbol(cell.symbol, 0x00, 0x00, 0x00, 0x00)),
+    new GridCell(x, y, new CodeSymbol(cell.symbol, 0x00, 0x00, 0x00, 0x00)),
     signalA,
     signalB,
   ];

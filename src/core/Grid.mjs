@@ -1,6 +1,7 @@
 import { CodeSymbol } from './CodeSymbol.mjs';
 import { getKey } from './getKey.mjs';
 
+
 /**
  * Class to make working with the 2D grid easier.
  * @type {Map}

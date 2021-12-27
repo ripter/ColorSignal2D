@@ -1,9 +1,15 @@
-import { Change } from '../core/Change.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
+/**
+ * Mirror, reflects signals back the direction they came from.
+ * @param  {[type]} position               [description]
+ * @param  {[type]} cell                   [description]
+ * @return {[type]}          [description]
+ */
 export function tick(position, cell) {
   const { x, y } = position;
-  const self = new Change(x, y, cell);
+  const self = new GridCell(x, y, cell);
   // Skip if there is no Alpha value.
   if (!cell.A) { return [self]; }
   const signal = self.clone();
