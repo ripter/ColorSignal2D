@@ -2,54 +2,46 @@ import { assert } from 'chai';
 
 import { BLACK, RED, WHITE } from '../consts/colors.mjs';
 import { CodeSymbol } from '../core/CodeSymbol.mjs';
+import { GridCell } from '../core/GridCell.mjs';
+import { Grid } from '../core/Grid.mjs';
 import { collide, tick } from './signal.mjs';
 import { textToCodeSymbol } from '../utils/textToCodeSymbol.mjs';
 
 describe('CodeSymbol: * ', () => {
-  // should(); // Give everything .should
-  let codeGrid;
-  beforeEach(() => {
-    codeGrid = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ];
-  });
-
   describe('tick(position, cell, codeGrid)', () => {
     it('moves North with Alpha 0b0001', () => {
       const cell = textToCodeSymbol(`*${WHITE}01`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 0, cell },
+        new GridCell(1, 0, cell),
       ]);
     });
 
     it('moves South with Alpha 0b0010', () => {
       const cell = textToCodeSymbol(`*${WHITE}02`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 2, cell },
+        new GridCell(1, 2, cell),
       ]);
     });
 
     it('moves East with Alpha 0b0100', () => {
       const cell = textToCodeSymbol(`*${WHITE}04`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 2, y: 1, cell },
+        new GridCell(2, 1, cell),
       ]);
     });
 
     it('moves West with Alpha 0b1000', () => {
       const cell = textToCodeSymbol(`*${WHITE}08`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 0, y: 1, cell },
+        new GridCell(0, 1, cell),
       ]);
     });
   });

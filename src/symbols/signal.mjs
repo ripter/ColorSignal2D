@@ -14,23 +14,22 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
  * Performs a tick, moving the signal in a direction.
- * @param  {{x, y}} position - CodeSymbol's position in the code grid.
- * @param  {CodeSymbol} cell - The cell at position in the code grid.
- * @param  {[[CodeSymbol]]} codeGrid - Grid running the code.
- * @return {[[CodeSymbol]]} A new code grid created from the result of ticking parameters.
+ * @param {Number} x
+ * @param {Number} y
+ * @param  {CodeSymbol} codeSymbol
+ * @return {[GridCell]} Returns a list of grid cells.
  */
-export function tick(position, cell) {
-  const { x, y } = position;
-  const self = new GridCell(x, y, cell);
+export function tick(x, y, codeSymbol) {
+  const self = new GridCell(x, y, codeSymbol);
 
   // Get the direction from the config.
-  if (hasFlag(FLAG.NORTH, cell)) {
+  if (hasFlag(FLAG.NORTH, codeSymbol)) {
     self.y -= 1;
-  } else if (hasFlag(FLAG.SOUTH, cell)) {
+  } else if (hasFlag(FLAG.SOUTH, codeSymbol)) {
     self.y += 1;
-  } else if (hasFlag(FLAG.EAST, cell)) {
+  } else if (hasFlag(FLAG.EAST, codeSymbol)) {
     self.x += 1;
-  } else if (hasFlag(FLAG.WEST, cell)) {
+  } else if (hasFlag(FLAG.WEST, codeSymbol)) {
     self.x -= 1;
   }
 

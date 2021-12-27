@@ -11,40 +11,41 @@ import { GridCell } from '../core/GridCell.mjs';
 
 /**
  * Performs a tick, emitting two signals if there is an Alpha value.
- * @param  {{x, y}} position - CodeSymbol's position in the code grid.
- * @param  {CodeSymbol} cell - The cell at position in the code grid.
- * @param  {[[CodeSymbol]]} codeGrid - Grid running the code.
- * @return {[[CodeSymbol]]} A new code grid created from the result of ticking parameters.
+ * @param {Number} x
+ * @param {Number} y
+ * @param  {CodeSymbol} codeSymbol
+ * @return {[GridCell]} Returns a list of grid cells.
  */
-export function tick(position, cell) {
-  const { x, y } = position;
+export function tick(x, y, codeSymbol) {
   // Skip if there is no Alpha value.
-  if (!cell.A) { return [new GridCell(x, y, cell)]; }
-  const signalA = new GridCell(x, y, new CodeSymbol('*', cell.R, cell.G, cell.B, cell.A));
+  if (!codeSymbol.A) { return [new GridCell(x, y, codeSymbol)]; }
+
+  const signalA = new GridCell(x, y, codeSymbol.clone());
+  signalA.value.symbol = '*';
   const signalB = signalA.clone();
 
   // Use the direction to set the two signals.
-  if (hasFlag(FLAG.NORTH, cell)) {
+  if (hasFlag(FLAG.NORTH, codeSymbol)) {
     signalA.y -= 1;
     signalB.x += 1;
-    signalB.cell.A = FLAG.EAST;
-  } else if (hasFlag(FLAG.SOUTH, cell)) {
+    signalB.value.A = FLAG.EAST;
+  } else if (hasFlag(FLAG.SOUTH, codeSymbol)) {
     signalA.y += 1;
     signalB.x -= 1;
-    signalB.cell.A = FLAG.WEST;
-  } else if (hasFlag(FLAG.EAST, cell)) {
+    signalB.value.A = FLAG.WEST;
+  } else if (hasFlag(FLAG.EAST, codeSymbol)) {
     signalA.x += 1;
     signalB.y += 1;
-    signalB.cell.A = FLAG.SOUTH;
-  } else if (hasFlag(FLAG.WEST, cell)) {
+    signalB.value.A = FLAG.SOUTH;
+  } else if (hasFlag(FLAG.WEST, codeSymbol)) {
     signalA.x -= 1;
     signalB.y -= 1;
-    signalB.cell.A = FLAG.NORTH;
+    signalB.value.A = FLAG.NORTH;
   }
 
   return [
     // replace self with a cleared data version.
-    new GridCell(x, y, new CodeSymbol(cell.symbol, 0x00, 0x00, 0x00, 0x00)),
+    new GridCell(x, y, new CodeSymbol(codeSymbol.symbol, 0x00, 0x00, 0x00, 0x00)),
     signalA,
     signalB,
   ];
