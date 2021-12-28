@@ -43,17 +43,17 @@ describe('core/tickCode', () => {
   });
 
   describe('collision', () => {
-    it.only('triggers collision rule', () => {
+    it('triggers collision rule', () => {
       const eastSignal = new CodeSymbol('*', 0x00, 0x00, 0xFF, FLAG.EAST);
       const westSignal = new CodeSymbol('*', 0x00, 0xFF, 0x00, FLAG.WEST);
       grid.add(0, 1, eastSignal);
       grid.add(2, 1, westSignal);
 
       assert.deepEqual(
-        tickCode(RULES, grid),
+        tickCode(RULES, grid).toJSON(),
         [
           [null, null, null],
-          [null, new CodeSymbol('*', 0x00, 0xFF, 0xFF, 0x08), null],
+          [null, '*#00FFFF08', null],
           [null, null, null],
         ],
       );

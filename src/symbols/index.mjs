@@ -11,10 +11,7 @@ import ifRule from './if.mjs';
  * Each symbol can have a tick and/or collide function.
  */
 export const RULES = {
-  '*': {
-    ...signal,
-    collide: absorb,
-  },
+  '*': signal,
   Ѡ: {
     ...output,
     collide: output.collide.bind(null, (chars) => {

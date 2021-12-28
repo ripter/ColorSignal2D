@@ -79,6 +79,20 @@ describe('Grid', () => {
       [null, null, null],
     ]);
   });
+  it('.to2DArray(shouldStringifyValue = true) with data', () => {
+    grid.add(1, 0, new CodeSymbol('*', 0x00, 0x74, 0xD9, 0x01));
+    grid.add(1, 1, new CodeSymbol('D', 0x7F, 0xDB, 0xFF, 0x02));
+    grid.add(1, 1, new CodeSymbol('C', 0xFF, 0x85, 0x1B, 0x04));
+    grid.add(1, 1, new CodeSymbol('X', 0x2E, 0xCC, 0x40, 0x08));
+    assert.deepEqual(
+      grid.toJSON(),
+      [
+        [null, '*#0074D901', null],
+        [null, ['D#7FDBFF02', 'C#FF851B04', 'X#2ECC4008'], null],
+        [null, null, null],
+      ]
+    );
+  });
 
   it('.collisions returns an [GridCell, ]', () => {
     grid.add(1, 0, { name: 'Rose' });

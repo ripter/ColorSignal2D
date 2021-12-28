@@ -37,6 +37,11 @@ export class CodeSymbol {
     return this.symbol + colorFromColor(this, true);
   }
 
+  toJSON() {
+    return this.toString();
+    // return {name: this.toString()};
+  }
+
   get R() {
     return this.data[0];
   }

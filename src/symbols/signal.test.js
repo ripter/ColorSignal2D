@@ -47,27 +47,30 @@ describe('CodeSymbol: * ', () => {
     });
   });
 
-  describe.only('collide', () => {
+  describe('collide', () => {
     it('merges collide2 color into collide1', () => {
-      const actual = collide(1, 1, textToCodeSymbol(`${BLACK}02`), [textToCodeSymbol(`${RED}08`)]);
-      assert.equal(actual.length, 1, 'Returns merged')
-      assert.deepEqual(actual[0], new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.SOUTH));
-      // assert.equal(actual.R, 0xFF, 'Red should be 0xFF after merge.');
-      // assert.equal(actual.G, 0x00, 'Green should be untouched after merge.');
-      // assert.equal(actual.B, 0x00, 'Blue should be untouched after merge.');
-      // assert.equal(actual.A, 0x02, 'Alpha should still be collide1.A');
+      const actual = collide(
+        1, 1,
+        new CodeSymbol('*', 0x00, 0x00, 0x00, FLAG.SOUTH),
+        [
+          new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.NORTH),
+        ]
+      );
+      assert.equal(actual.length, 1, 'Everything should merge together.');
+      assert.deepEqual(actual[0], new GridCell(1, 1, new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.SOUTH)));
     });
 
-    it('merge works on Blue, Green colors', () => {
+    it('merge works on many colors', () => {
       const actual = collide(
         1, 1,
         new CodeSymbol('A', 0x00, 0xFF, 0x00, FLAG.EAST),
-        [new CodeSymbol('B', 0x00, 0x00, 0xFF, FLAG.NORTH | FLAG.SET)],
+        [
+          new CodeSymbol('B', 0x00, 0x00, 0xFF, FLAG.NORTH | FLAG.SET),
+          new CodeSymbol('B', 0xFF, 0x00, 0xFF, FLAG.SOUTH),
+        ],
       );
-      assert.equal(actual.R, 0x00);
-      // assert.equal(actual.G, 0xFF);
-      // assert.equal(actual.B, 0xFF);
-      // assert.equal(actual.A, FLAG.EAST);
+      assert.equal(actual.length, 1, 'Everything should merge together.');
+      assert.deepEqual(actual[0], new GridCell(1, 1, new CodeSymbol('A', 0xFF, 0xFF, 0xFF, FLAG.EAST)));
     });
   });
 });

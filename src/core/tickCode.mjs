@@ -5,7 +5,7 @@ import { fromKey } from './getKey.mjs';
 
 export function tickCode(RULES, codeMap) {
   // Create a new map to hold the code state.
-  const nextMap = new Grid(codeMap.width, codeMap.heigth);
+  const nextGrid = new Grid(codeMap.width, codeMap.heigth);
   // the grid is y,x so the box needs to be height,widht for bounds checking.
   // const isCodeSymbolInBounds = inBounds.bind(null, [0, 0, codeMap.width, codeMap.heigth]);
 
@@ -19,34 +19,38 @@ export function tickCode(RULES, codeMap) {
 
       if (tick) {
         // tick returns a set of cells to add.
-        tick(x, y, cell, codeMap).forEach(cell => nextMap.add(cell.x, cell.y, cell.value));
+        tick(x, y, cell, codeMap).forEach(cell => nextGrid.add(cell.x, cell.y, cell.value));
       } else {
         // without a tick, just keep the symbol where it is.
-        nextMap.add(x, y, cell);
+        nextGrid.add(x, y, cell);
       }
     }
   }
 
   //
   // Resolve all the collisions.
-  while (nextMap.hasCollisions) {
-    nextMap.collisions.forEach(cell => {
+  while (nextGrid.hasCollisions) {
+    // console.log('hasCollisions', nextGrid.hasCollisions);
+    // console.log('collisions', nextGrid.collisions);
+    nextGrid.collisions.forEach(cell => {
       const collisions = [...cell.value];
       collisions.sort((a, b) => RULES[b.symbol].collidePriority - RULES[a.symbol].collidePriority);
       const collide1 = collisions.shift();
 
-      RULES[collide1.symbol].collide(cell.x, cell.y, collide1, collisions).forEach(cell => nextMap.add(cell.x, cell.y, cell.value));
-
-      // if (collisions.length > 0) {
-      //   // nextCodeGrid[y][x] = RULES[collide1.symbol].collide(collide1, collisions);
-      //
-      // } else {
-      //   nextMap.add(x, y, collide1);
-      // }
+      // Clear out the old values, we will replace with with the collision result.
+      nextGrid.delete(cell.x, cell.y);
+      // Call collide and merge the results back into the map.
+      RULES[collide1.symbol]
+        .collide(cell.x, cell.y, collide1, collisions)
+        // .map(c => {console.log('c', c); return c; })
+        .forEach(c => {
+          // console.log('Adding collision result to the map', c);
+          nextGrid.add(c.x, c.y, c.value);
+        });
     });
   }
 
-  return nextMap;
+  return nextGrid;
 }
 
 /**

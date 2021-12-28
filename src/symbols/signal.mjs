@@ -46,7 +46,9 @@ export function tick(x, y, codeSymbol) {
  * @return {[GridCell<CodeSymbol>]}
  */
 export function collide(x, y, self, collisions) {
+  const alpha = self.A;
   absorb(self, collisions);
+  self.A = alpha;
 
   return [
     new GridCell(x, y, self),

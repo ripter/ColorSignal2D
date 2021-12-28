@@ -76,6 +76,12 @@ export class Grid {
     this.data.set(key, symbols);
   }
 
+  delete(x, y) {
+    if (!this.has(x, y)) { return; }
+    const key = getKey(x, y);
+    this.data.delete(key);
+  }
+
   /**
    * Returns the Grid as 2D Array stringified.
    * @return {String}
@@ -89,17 +95,32 @@ export class Grid {
     });
   }
 
+  toJSON() {
+    return this.to2DArray({
+      shouldStringifyValue: true,
+    });
+  }
+
   /**
    * Returns the Grid as a 2D array.
    * @return {[[Object]]}
    */
-  to2DArray() {
+  to2DArray({shouldStringifyValue = false}) {
     const grid2d = [];
     for (let y = 0; y < this.height; y++) {
       grid2d[y] = [];
       for (let x = 0; x < this.width; x++) {
         if (this.has(x, y)) {
-          grid2d[y][x] = Array.from(this.at(x, y));
+          if (shouldStringifyValue) {
+            const vals = Array.from(this.at(x, y));
+            if (vals.length > 1) {
+              grid2d[y][x] = vals.map(c => c.toString());
+            } else {
+              grid2d[y][x] = vals[0].toString();
+            }
+          } else {
+            grid2d[y][x] = Array.from(this.at(x, y));
+          }
         } else {
           grid2d[y][x] = null;
         }
