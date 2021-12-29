@@ -78,6 +78,9 @@ export class Grid {
    * @param {Object} symbol
    */
   add(x, y, symbol) {
+    // bail if the position is outside the grid.
+    if (x < 0 || y < 0) { return; }
+    if (x >= this.width || y >= this.height) { return; }
     const key = getKey(x, y);
     const symbols = this.data.get(key) ?? new Set();
     symbols.add(symbol);

@@ -99,6 +99,7 @@ describe('core/tickCode', () => {
       grid.add(0, 1, cell);
       const actual = tickCode(RULES, grid);
 
+      assert.isFalse(actual.has(-1, 1), 'x: -1 is out of bounds.');
       assert.deepEqual(
         actual.toJSON(),
         [
@@ -115,6 +116,7 @@ describe('core/tickCode', () => {
       grid.add(2, 1, cell);
       const actual = tickCode(RULES, grid);
 
+      assert.isFalse(actual.has(3, 1), 'x: 3 is out of bounds.');
       assert.deepEqual(
         actual.toJSON(),
         [
@@ -131,6 +133,7 @@ describe('core/tickCode', () => {
       grid.add(1, 0, cell);
       const actual = tickCode(RULES, grid);
 
+      assert.isFalse(actual.has(1, -1), 'y: -1 is out of bounds.');
       assert.deepEqual(
         actual.toJSON(),
         [
@@ -146,6 +149,10 @@ describe('core/tickCode', () => {
       const cell = new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.SOUTH);
       grid.add(1, 2, cell);
       const actual = tickCode(RULES, grid);
+
+      assert.isFalse(actual.has(1, 2));
+      assert.isFalse(actual.has(1, 3), 'y: 3 is out of bounds.');
+      assert.isFalse(actual.has(1, 4));
 
       assert.deepEqual(
         actual.toJSON(),

@@ -14,8 +14,8 @@ export function tickCode(RULES, grid) {
   //
   // Tick all the symbols
   for (const [key, cells] of grid.data.entries()) {
+    const [x, y] = fromKey(key);
     for (const cell of cells) {
-      const [x, y] = fromKey(key);
       const { symbol } = cell;
       const { tick } = RULES[symbol];
 
@@ -45,5 +45,6 @@ export function tickCode(RULES, grid) {
         .forEach((c) => nextGrid.add(c.x, c.y, c.value));
     });
   }
+
   return nextGrid;
 }

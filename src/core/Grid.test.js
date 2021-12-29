@@ -26,31 +26,43 @@ describe('Grid', () => {
     assert.isTrue(grid.has(1, 1));
   });
 
-  it('.add() can set and .at() can get a single item', () => {
-    grid.add(1, 1, { name: 'Delphi' });
-    assert.deepEqual(
-      grid.at(1, 1).size,
-      1,
-      'A single item at the grid position',
-    );
-    assert.deepEqual(
-      Array.from(grid.at(1, 1)),
-      [{ name: 'Delphi' }],
-    );
-  });
-  it('.add() can add many items and .at() returns the set of values', () => {
-    grid.add(1, 1, { name: 'Delphi' });
-    grid.add(1, 1, { name: 'Chris' });
-    grid.add(1, 1, { name: 'Xiaoyan' });
-    assert.deepEqual(
-      grid.at(1, 1).size,
-      3,
-      'Three items at the grid position',
-    );
-    assert.deepEqual(
-      Array.from(grid.at(1, 1)),
-      [{ name: 'Delphi' }, { name: 'Chris' }, { name: 'Xiaoyan' }],
-    );
+  describe('.add()', () => {
+    it('can set and .at() can get a single item', () => {
+      grid.add(1, 1, { name: 'Delphi' });
+      assert.deepEqual(
+        grid.at(1, 1).size,
+        1,
+        'A single item at the grid position',
+      );
+      assert.deepEqual(
+        Array.from(grid.at(1, 1)),
+        [{ name: 'Delphi' }],
+      );
+    });
+    it('can add many items and .at() returns the set of values', () => {
+      grid.add(1, 1, { name: 'Delphi' });
+      grid.add(1, 1, { name: 'Chris' });
+      grid.add(1, 1, { name: 'Xiaoyan' });
+      assert.deepEqual(
+        grid.at(1, 1).size,
+        3,
+        'Three items at the grid position',
+      );
+      assert.deepEqual(
+        Array.from(grid.at(1, 1)),
+        [{ name: 'Delphi' }, { name: 'Chris' }, { name: 'Xiaoyan' }],
+      );
+    });
+    it('will not add items out of bounds', () => {
+      grid.add(-1, 0, { name: 'Delphi' });
+      assert.isFalse(grid.has(-1, 0), 'x: -1 is out of bounds');
+      grid.add(3, 0, { name: 'Delphi' });
+      assert.isFalse(grid.has(3, 0), 'x: 3 is out of bounds');
+      grid.add(0, -1, { name: 'Delphi' });
+      assert.isFalse(grid.has(-1, 0), 'y: -1 is out of bounds');
+      grid.add(0, 3, { name: 'Delphi' });
+      assert.isFalse(grid.has(3, 0), 'y: 3 is out of bounds');
+    });
   });
 
   it('.toString()', () => {
