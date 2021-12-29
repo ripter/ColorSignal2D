@@ -1,9 +1,8 @@
-import { absorb } from './abilities/absorb.mjs';
+import ifRule from './if.mjs';
 import mirror from './mirror.mjs';
 import output from './output.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
-import ifRule from './if.mjs';
 
 /**
  * Default Rules for the language.
