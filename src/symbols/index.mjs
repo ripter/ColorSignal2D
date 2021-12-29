@@ -18,10 +18,7 @@ export const RULES = {
       window.OUTPUT.push(...chars);
     }),
   },
-  Ɨ: {
-    ...split,
-    collide: absorb,
-  },
+  Ɨ: split,
   '|': {
     ...mirror,
     collide: absorb,

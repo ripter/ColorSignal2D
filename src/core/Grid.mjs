@@ -2,7 +2,6 @@ import { CodeSymbol } from './CodeSymbol.mjs';
 import { fromKey, getKey } from './getKey.mjs';
 import { GridCell } from './GridCell.mjs';
 
-
 /**
  * Class to make working with the 2D grid easier.
  * @type {Map}
@@ -11,6 +10,15 @@ export class Grid {
   constructor(width, height) {
     this.width = width;
     this.height = height;
+
+    // Make sure width/height are numbers.
+    if (isNaN(parseInt(this.width, 10))) {
+      throw new Error(`Grid requires width but got "${this.width}"`);
+    }
+    if (isNaN(parseInt(this.height, 10))) {
+      throw new Error(`Grid requires height but got "${this.height}"`);
+    }
+
     this.data = new Map();
   }
 
@@ -23,7 +31,7 @@ export class Grid {
     for (const [key, cell] of this.data) {
       // items.push(key);
       if (cell.size > 1) {
-        const [x ,y] = fromKey(key);
+        const [x, y] = fromKey(key);
         items.push(new GridCell(x, y, Array.from(cell)));
       }
     }
@@ -105,7 +113,7 @@ export class Grid {
    * Returns the Grid as a 2D array.
    * @return {[[Object]]}
    */
-  to2DArray({shouldStringifyValue = false}) {
+  to2DArray(shouldStringifyValue = false) {
     const grid2d = [];
     for (let y = 0; y < this.height; y++) {
       grid2d[y] = [];
@@ -114,7 +122,7 @@ export class Grid {
           if (shouldStringifyValue) {
             const vals = Array.from(this.at(x, y));
             if (vals.length > 1) {
-              grid2d[y][x] = vals.map(c => c.toString());
+              grid2d[y][x] = vals.map((c) => c.toString());
             } else {
               grid2d[y][x] = vals[0].toString();
             }

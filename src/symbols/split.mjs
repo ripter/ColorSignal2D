@@ -1,6 +1,7 @@
 import { CodeSymbol } from '../core/CodeSymbol.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { GridCell } from '../core/GridCell.mjs';
+import { absorb } from './abilities/absorb.mjs';
 
 /**
  * On collision, CodeSymbol Color is added to self Color
@@ -56,5 +57,11 @@ export function tick(x, y, codeSymbol) {
 
 export default {
   tick,
+  collide: (x, y, self, collisions) => {
+    absorb(self, collisions);
+    return [
+      new GridCell(x, y, self),
+    ];
+  },
   collidePriority: 1, // Common priority in collision.
 };

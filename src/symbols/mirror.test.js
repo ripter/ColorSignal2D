@@ -5,7 +5,6 @@ import { CodeSymbol } from '../core/CodeSymbol.mjs';
 import { GridCell } from '../core/GridCell.mjs';
 import { tick } from './mirror.mjs';
 
-
 describe('mirror', () => {
   let mirrorCodeSymbol;
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('mirror', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('|', 0x00, 0x00, 0x00, 0x00)),
-      'Mirror is reset after tick.'
+      'Mirror is reset after tick.',
     );
     assert.deepEqual(
       changeset[1],
@@ -34,7 +33,7 @@ describe('mirror', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('|', 0x00, 0x00, 0x00, 0x00)),
-      'Mirror is reset after tick.'
+      'Mirror is reset after tick.',
     );
     assert.deepEqual(
       changeset[1],
@@ -49,7 +48,7 @@ describe('mirror', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('|', 0x00, 0x00, 0x00, 0x00)),
-      'Mirror is reset after tick.'
+      'Mirror is reset after tick.',
     );
     assert.deepEqual(
       changeset[1],
@@ -64,7 +63,7 @@ describe('mirror', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('|', 0x00, 0x00, 0x00, 0x00)),
-      'Mirror is reset after tick.'
+      'Mirror is reset after tick.',
     );
     assert.deepEqual(
       changeset[1],

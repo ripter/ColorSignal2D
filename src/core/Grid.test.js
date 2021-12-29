@@ -90,7 +90,7 @@ describe('Grid', () => {
         [null, '*#0074D901', null],
         [null, ['D#7FDBFF02', 'C#FF851B04', 'X#2ECC4008'], null],
         [null, null, null],
-      ]
+      ],
     );
   });
 
@@ -102,10 +102,14 @@ describe('Grid', () => {
     assert.deepEqual(
       grid.collisions,
       [
-        {x: 1, y: 1, value: [
-          { name: 'Delphi' }, { name: 'Chris' }, { name: 'Xiaoyan' }
-        ]},
-      ]
+        {
+          x: 1,
+          y: 1,
+          value: [
+            { name: 'Delphi' }, { name: 'Chris' }, { name: 'Xiaoyan' },
+          ],
+        },
+      ],
     );
   });
   it('.collisions returns empty when there are no collsions.', () => {

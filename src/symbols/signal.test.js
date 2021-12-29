@@ -50,11 +50,12 @@ describe('CodeSymbol: * ', () => {
   describe('collide', () => {
     it('merges collide2 color into collide1', () => {
       const actual = collide(
-        1, 1,
+        1,
+        1,
         new CodeSymbol('*', 0x00, 0x00, 0x00, FLAG.SOUTH),
         [
           new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.NORTH),
-        ]
+        ],
       );
       assert.equal(actual.length, 1, 'Everything should merge together.');
       assert.deepEqual(actual[0], new GridCell(1, 1, new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.SOUTH)));
@@ -62,7 +63,8 @@ describe('CodeSymbol: * ', () => {
 
     it('merge works on many colors', () => {
       const actual = collide(
-        1, 1,
+        1,
+        1,
         new CodeSymbol('A', 0x00, 0xFF, 0x00, FLAG.EAST),
         [
           new CodeSymbol('B', 0x00, 0x00, 0xFF, FLAG.NORTH | FLAG.SET),

@@ -5,7 +5,6 @@ import { FLAG } from '../consts/flag.mjs';
 import { GridCell } from '../core/GridCell.mjs';
 import { tick } from './split.mjs';
 
-
 describe('symbol/split', () => {
   let splitCodeSymbol;
 
@@ -20,7 +19,7 @@ describe('symbol/split', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('Ɨ', 0x00, 0x00, 0x00, 0x00)),
-      'Color is reset to black after creating signals'
+      'Color is reset to black after creating signals',
     );
     assert.deepEqual(
       changeset[1],
@@ -39,7 +38,7 @@ describe('symbol/split', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('Ɨ', 0x00, 0x00, 0x00, 0x00)),
-      'Color is reset to black after creating signals'
+      'Color is reset to black after creating signals',
     );
     assert.deepEqual(
       changeset[1],
@@ -58,7 +57,7 @@ describe('symbol/split', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('Ɨ', 0x00, 0x00, 0x00, 0x00)),
-      'Color is reset to black after creating signals'
+      'Color is reset to black after creating signals',
     );
     assert.deepEqual(
       changeset[1],
@@ -77,7 +76,7 @@ describe('symbol/split', () => {
     assert.deepEqual(
       changeset[0],
       new GridCell(1, 1, new CodeSymbol('Ɨ', 0x00, 0x00, 0x00, 0x00)),
-      'Color is reset to black after creating signals'
+      'Color is reset to black after creating signals',
     );
     assert.deepEqual(
       changeset[1],
