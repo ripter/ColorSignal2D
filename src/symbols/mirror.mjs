@@ -1,3 +1,4 @@
+import { absorb } from './abilities/absorb.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { GridCell } from '../core/GridCell.mjs';
 
@@ -42,5 +43,11 @@ export function tick(x, y, codeSymbol) {
 
 export default {
   tick,
+  collide: (x, y, self, collisions) => {
+    absorb(self, collisions);
+    return [
+      new GridCell(x, y, self),
+    ];
+  },
   collidePriority: 1, // Average priority
 };

@@ -19,9 +19,6 @@ export const RULES = {
     }),
   },
   Ɨ: split,
-  '|': {
-    ...mirror,
-    collide: absorb,
-  },
+  '|': mirror,
   ʃ: ifRule,
 };
