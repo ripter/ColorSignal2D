@@ -1,11 +1,10 @@
 import { assert } from 'chai';
 
-import { Grid } from './Grid.mjs';
-import { GridCell } from './GridCell.mjs';
 import { CodeSymbol } from './CodeSymbol.mjs';
+import { FLAG } from '../consts/flag.mjs';
+import { Grid } from './Grid.mjs';
 import { RULES } from '../symbols/index.mjs';
 import { tickCode } from './tickCode.mjs';
-import { FLAG } from '../consts/flag.mjs';
 
 describe('core/tickCode', () => {
   let grid;

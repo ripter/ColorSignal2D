@@ -1,21 +1,12 @@
-import { CodeSymbol } from '../core/CodeSymbol.mjs';
+import { absorb } from './abilities/absorb.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { GridCell } from '../core/GridCell.mjs';
-import { absorb } from './abilities/absorb.mjs';
 
 /**
- * On collision, CodeSymbol Color is added to self Color
- * @param  {CodeSymbol} self
- * @param  {[CodeSymbol]} collisions
- * @return {CodeSymbol}
- */
-
-/**
- * Performs a tick, emitting two signals if there is an Alpha value.
+ * Returns two signals if there is an Alpha value then clears self.
  * @param {Number} x
  * @param {Number} y
  * @param  {CodeSymbol} codeSymbol
- * @return {[GridCell]} Returns a list of grid cells.
  */
 export function tick(x, y, codeSymbol) {
   // Skip if there is no Alpha value.
@@ -48,7 +39,6 @@ export function tick(x, y, codeSymbol) {
   // Reset ourself.
   codeSymbol.clear();
   return [
-    // replace self with a cleared data version.
     new GridCell(x, y, codeSymbol),
     signalA,
     signalB,

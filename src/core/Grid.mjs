@@ -12,10 +12,10 @@ export class Grid {
     this.height = height;
 
     // Make sure width/height are numbers.
-    if (isNaN(parseInt(this.width, 10))) {
+    if (Number.isNaN(parseInt(this.width, 10))) {
       throw new Error(`Grid requires width but got "${this.width}"`);
     }
-    if (isNaN(parseInt(this.height, 10))) {
+    if (Number.isNaN(parseInt(this.height, 10))) {
       throw new Error(`Grid requires height but got "${this.height}"`);
     }
 

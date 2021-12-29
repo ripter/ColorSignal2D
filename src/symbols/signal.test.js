@@ -1,17 +1,14 @@
 import { assert } from 'chai';
 
-import { BLACK, RED, WHITE } from '../consts/colors.mjs';
 import { CodeSymbol } from '../core/CodeSymbol.mjs';
-import { GridCell } from '../core/GridCell.mjs';
-import { Grid } from '../core/Grid.mjs';
 import { collide, tick } from './signal.mjs';
-import { textToCodeSymbol } from '../utils/textToCodeSymbol.mjs';
 import { FLAG } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
 describe('CodeSymbol: * ', () => {
   describe('tick(position, cell, codeGrid)', () => {
-    it('moves North with Alpha 0b0001', () => {
-      const cell = textToCodeSymbol(`*${WHITE}01`);
+    it('moves North', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.NORTH);
       const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
@@ -19,8 +16,8 @@ describe('CodeSymbol: * ', () => {
       ]);
     });
 
-    it('moves South with Alpha 0b0010', () => {
-      const cell = textToCodeSymbol(`*${WHITE}02`);
+    it('moves South', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.SOUTH);
       const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
@@ -28,8 +25,8 @@ describe('CodeSymbol: * ', () => {
       ]);
     });
 
-    it('moves East with Alpha 0b0100', () => {
-      const cell = textToCodeSymbol(`*${WHITE}04`);
+    it('moves East', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.EAST);
       const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
@@ -37,8 +34,8 @@ describe('CodeSymbol: * ', () => {
       ]);
     });
 
-    it('moves West with Alpha 0b1000', () => {
-      const cell = textToCodeSymbol(`*${WHITE}08`);
+    it('moves West', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.WEST);
       const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
