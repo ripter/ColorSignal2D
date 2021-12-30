@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 
-import { Grid } from './Grid.mjs';
 import { CodeSymbol } from './CodeSymbol.mjs';
+import { Grid } from './Grid.mjs';
 
 describe('Grid', () => {
   let grid;

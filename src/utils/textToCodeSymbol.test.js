@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import { textToCodeSymbol } from './textToCodeSymbol.mjs';
 
 describe('textToCodeSymbol', () => {

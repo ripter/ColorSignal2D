@@ -1,5 +1,5 @@
-import { Grid } from './Grid.mjs';
 import { fromKey } from './getKey.mjs';
+import { Grid } from './Grid.mjs';
 
 /**
  * Performs a single Tick on the codeGrid.

@@ -1,6 +1,6 @@
-import { GridCell } from '../core/GridCell.mjs';
-import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { absorb } from './abilities/absorb.mjs';
+import { FLAG, hasFlag } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
 /**
  * CodeSymbol CodeSymbol

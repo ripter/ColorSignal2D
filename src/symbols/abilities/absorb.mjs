@@ -1,5 +1,3 @@
-
-
 /**
  * Absorbs te color values from cells and adds them to self.
  * Mutates self

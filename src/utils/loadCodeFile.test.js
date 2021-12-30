@@ -1,6 +1,7 @@
 import { assert } from 'chai';
-import { loadCodeFile } from './loadCodeFile.mjs';
+
 import { CodeSymbol } from '../core/CodeSymbol.mjs';
+import { loadCodeFile } from './loadCodeFile.mjs';
 
 describe('utils/loadCodeFile', () => {
   it('loads 2d grid with string values', () => {

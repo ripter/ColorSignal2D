@@ -39,7 +39,6 @@ export class CodeSymbol {
 
   toJSON() {
     return this.toString();
-    // return {name: this.toString()};
   }
 
   get R() {
@@ -74,5 +73,3 @@ export class CodeSymbol {
     this.data[3] = val;
   }
 }
-
-// window.CodeSymbol = CodeSymbol;

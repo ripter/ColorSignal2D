@@ -1,5 +1,5 @@
-import { textToCodeSymbol } from './textToCodeSymbol.mjs';
 import { Grid } from '../core/Grid.mjs';
+import { textToCodeSymbol } from './textToCodeSymbol.mjs';
 
 /**
  * Loads the file format into the in-memory format for the Code Grid.
