@@ -1,10 +1,11 @@
-import { Change } from '../core/Change.mjs';
+import { absorb } from './abilities/absorb.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
 /**
- * Signal Symbol
+ * CodeSymbol CodeSymbol
  * Moves in a direction carrying a color value.
- * Triggers a collision when it collides with another Symbol.
+ * Triggers a collision when it collides with another CodeSymbol.
  * Alpha Config:
  *   0b0001 - North   0x01
  *   0b0010 - South   0x02
@@ -14,23 +15,22 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
 
 /**
  * Performs a tick, moving the signal in a direction.
- * @param  {{x, y}} position - Cell's position in the code grid.
- * @param  {Cell} cell - The cell at position in the code grid.
- * @param  {[[Cell]]} codeGrid - Grid running the code.
- * @return {[[Cell]]} A new code grid created from the result of ticking parameters.
+ * @param {Number} x
+ * @param {Number} y
+ * @param  {CodeSymbol} codeSymbol
+ * @return {[GridCell]} Returns a list of grid cells.
  */
-export function tick(position, cell) {
-  const { x, y } = position;
-  const self = new Change(x, y, cell);
+export function tick(x, y, codeSymbol) {
+  const self = new GridCell(x, y, codeSymbol);
 
   // Get the direction from the config.
-  if (hasFlag(FLAG.NORTH, cell)) {
+  if (hasFlag(FLAG.NORTH, codeSymbol)) {
     self.y -= 1;
-  } else if (hasFlag(FLAG.SOUTH, cell)) {
+  } else if (hasFlag(FLAG.SOUTH, codeSymbol)) {
     self.y += 1;
-  } else if (hasFlag(FLAG.EAST, cell)) {
+  } else if (hasFlag(FLAG.EAST, codeSymbol)) {
     self.x += 1;
-  } else if (hasFlag(FLAG.WEST, cell)) {
+  } else if (hasFlag(FLAG.WEST, codeSymbol)) {
     self.x -= 1;
   }
 
@@ -39,17 +39,20 @@ export function tick(position, cell) {
 
 /**
  *  When two signals collide, merge collide2 into collide1
- * @param  {Cell} collide1
- * @param  {Cell} collide2
- * @return {Cell} Cell to place at position after collision.
+ * @param {Number} x
+ * @param {Number} y
+ * @param  {CodeSymbol} self
+ * @param  {[CodeSymbol]} collisions
+ * @return {[GridCell<CodeSymbol>]}
  */
-export function collide(collide1, collide2) {
-  // Merge in the RGB colors from the other signal.
-  collide1.R += collide2.R;
-  collide1.G += collide2.G;
-  collide1.B += collide2.B;
+export function collide(x, y, self, collisions) {
+  const alpha = self.A;
+  absorb(self, collisions);
+  self.A = alpha;
 
-  return collide1;
+  return [
+    new GridCell(x, y, self),
+  ];
 }
 
 export default {

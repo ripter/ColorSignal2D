@@ -1,33 +1,39 @@
-import { Change } from '../core/Change.mjs';
+import { absorb } from './abilities/absorb.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
-export function tick(position, cell) {
-  const { x, y } = position;
-  const self = new Change(x, y, cell);
+/**
+ * Mirror, reflects signals back the direction they came from.
+ * @param {Number} x
+ * @param {Number} y
+ * @param  {CodeSymbol} codeSymbol
+ * @return {[GridCell]} Returns a list of grid cells.
+ */
+export function tick(x, y, codeSymbol) {
+  const self = new GridCell(x, y, codeSymbol);
   // Skip if there is no Alpha value.
-  if (!cell.A) { return [self]; }
+  if (!codeSymbol.A) { return [self]; }
+  // Create a Signal from our color value.
   const signal = self.clone();
-
-  // use the correct symbol for the signal
-  signal.cell.symbol = '*';
+  signal.value.symbol = '*';
 
   // Use the direction to set the two signals.
-  if (hasFlag(FLAG.NORTH, cell)) {
+  if (hasFlag(FLAG.NORTH, codeSymbol)) {
     signal.y += 1;
-    signal.cell.A = FLAG.SOUTH;
-  } else if (hasFlag(FLAG.SOUTH, cell)) {
+    signal.value.A = FLAG.SOUTH;
+  } else if (hasFlag(FLAG.SOUTH, codeSymbol)) {
     signal.y -= 1;
-    signal.cell.A = FLAG.NORTH;
-  } else if (hasFlag(FLAG.EAST, cell)) {
+    signal.value.A = FLAG.NORTH;
+  } else if (hasFlag(FLAG.EAST, codeSymbol)) {
     signal.x -= 1;
-    signal.cell.A = FLAG.WEST;
-  } else if (hasFlag(FLAG.WEST, cell)) {
+    signal.value.A = FLAG.WEST;
+  } else if (hasFlag(FLAG.WEST, codeSymbol)) {
     signal.x += 1;
-    signal.cell.A = FLAG.EAST;
+    signal.value.A = FLAG.EAST;
   }
 
   // reset self.
-  cell.clear();
+  codeSymbol.clear();
 
   return [
     self,
@@ -37,5 +43,11 @@ export function tick(position, cell) {
 
 export default {
   tick,
+  collide: (x, y, self, collisions) => {
+    absorb(self, collisions);
+    return [
+      new GridCell(x, y, self),
+    ];
+  },
   collidePriority: 1, // Average priority
 };

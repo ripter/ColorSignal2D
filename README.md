@@ -37,7 +37,7 @@ This performs a single tick on the code grid. It returns a new code grid. This h
 
 A tick is performed in phases. In the first phase, every symbol in the grid has it's `tick` rule called. The rule returns an array of symbols and the location they should appear post tick. In the second phase collisions between symbols trying to occupy the cell are resolved. This collision resolution returns an array of symbols and locations they should appear in post tick.
 
-
+None of this requires an actual grid for the logic. Empty cells are skipped, so something like a Map could be more effecent. It would be easy to convert a 2D array into a Map with the x,y as the key. The Map doesn't have a built width/height values like the 2D array. One advantage of the map is that we can loop until all conflicts have been resolved.
 
 
 

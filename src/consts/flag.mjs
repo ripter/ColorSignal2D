@@ -12,7 +12,7 @@ export const FLAG = {
 /**
  * Returns true if the cell's alpha value has all the flags.
  * @param  {byte}  flags
- * @param  {Cell}  cell
+ * @param  {CodeSymbol}  cell
  * @return {Boolean}
  */
 export function hasFlag(flag, cell) {

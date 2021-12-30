@@ -1,77 +1,75 @@
 import { assert } from 'chai';
 
-import { BLACK, RED, WHITE } from '../consts/colors.mjs';
-import { Cell } from '../core/Cell.mjs';
+import { CodeSymbol } from '../core/CodeSymbol.mjs';
 import { collide, tick } from './signal.mjs';
-import { textToCell } from '../utils/textToCell.mjs';
+import { FLAG } from '../consts/flag.mjs';
+import { GridCell } from '../core/GridCell.mjs';
 
-describe('Symbol: * ', () => {
-  // should(); // Give everything .should
-  let codeGrid;
-  beforeEach(() => {
-    codeGrid = [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ];
-  });
-
+describe('CodeSymbol: * ', () => {
   describe('tick(position, cell, codeGrid)', () => {
-    it('moves North with Alpha 0b0001', () => {
-      const cell = textToCell(`*${WHITE}01`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+    it('moves North', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.NORTH);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 0, cell },
+        new GridCell(1, 0, cell),
       ]);
     });
 
-    it('moves South with Alpha 0b0010', () => {
-      const cell = textToCell(`*${WHITE}02`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+    it('moves South', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.SOUTH);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 1, y: 2, cell },
+        new GridCell(1, 2, cell),
       ]);
     });
 
-    it('moves East with Alpha 0b0100', () => {
-      const cell = textToCell(`*${WHITE}04`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+    it('moves East', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.EAST);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 2, y: 1, cell },
+        new GridCell(2, 1, cell),
       ]);
     });
 
-    it('moves West with Alpha 0b1000', () => {
-      const cell = textToCell(`*${WHITE}08`);
-      const actual = tick({ x: 1, y: 1 }, cell, codeGrid);
+    it('moves West', () => {
+      const cell = new CodeSymbol('*', 0xF0, 0x12, 0xBE, FLAG.WEST);
+      const actual = tick(1, 1, cell);
 
       assert.deepEqual(actual, [
-        { x: 0, y: 1, cell },
+        new GridCell(0, 1, cell),
       ]);
     });
   });
 
-  describe('collide(position, collide1, collide2)', () => {
-    it('merges collide2 color with collide1', () => {
-      const actual = collide(textToCell(`${BLACK}02`), textToCell(`${RED}08`));
-      assert.equal(actual.R, 0xFF, 'Red should be 0xFF after merge.');
-      assert.equal(actual.G, 0x00, 'Green should be untouched after merge.');
-      assert.equal(actual.B, 0x00, 'Blue should be untouched after merge.');
-      assert.equal(actual.A, 0x02, 'Alpha should still be collide1.A');
+  describe('collide', () => {
+    it('merges collide2 color into collide1', () => {
+      const actual = collide(
+        1,
+        1,
+        new CodeSymbol('*', 0x00, 0x00, 0x00, FLAG.SOUTH),
+        [
+          new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.NORTH),
+        ],
+      );
+      assert.equal(actual.length, 1, 'Everything should merge together.');
+      assert.deepEqual(actual[0], new GridCell(1, 1, new CodeSymbol('*', 0xFF, 0x00, 0x00, FLAG.SOUTH)));
     });
 
-    it('merge works on Blue, Green colors', () => {
+    it('merge works on many colors', () => {
       const actual = collide(
-        new Cell('A', 0x00, 0xFF, 0x00, 0x04),
-        new Cell('B', 0x00, 0x00, 0xFF, 0x18),
+        1,
+        1,
+        new CodeSymbol('A', 0x00, 0xFF, 0x00, FLAG.EAST),
+        [
+          new CodeSymbol('B', 0x00, 0x00, 0xFF, FLAG.NORTH | FLAG.SET),
+          new CodeSymbol('B', 0xFF, 0x00, 0xFF, FLAG.SOUTH),
+        ],
       );
-      assert.equal(actual.R, 0x00);
-      assert.equal(actual.G, 0xFF);
-      assert.equal(actual.B, 0xFF);
-      assert.equal(actual.A, 0x04);
+      assert.equal(actual.length, 1, 'Everything should merge together.');
+      assert.deepEqual(actual[0], new GridCell(1, 1, new CodeSymbol('A', 0xFF, 0xFF, 0xFF, FLAG.EAST)));
     });
   });
 });

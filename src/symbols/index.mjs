@@ -1,9 +1,8 @@
-import { absorb } from './abilities/absorb.mjs';
+import ifRule from './if.mjs';
 import mirror from './mirror.mjs';
 import output from './output.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
-import ifRule from './if.mjs';
 
 /**
  * Default Rules for the language.
@@ -11,23 +10,14 @@ import ifRule from './if.mjs';
  * Each symbol can have a tick and/or collide function.
  */
 export const RULES = {
-  '*': {
-    ...signal,
-    collide: absorb,
-  },
+  '*': signal,
   Ѡ: {
     ...output,
     collide: output.collide.bind(null, (chars) => {
       window.OUTPUT.push(...chars);
     }),
   },
-  Ɨ: {
-    ...split,
-    collide: absorb,
-  },
-  '|': {
-    ...mirror,
-    collide: absorb,
-  },
+  Ɨ: split,
+  '|': mirror,
   ʃ: ifRule,
 };

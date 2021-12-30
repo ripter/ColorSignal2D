@@ -14,11 +14,12 @@ module.exports = {
   plugins: [],
   rules: {
     'import/extensions': ['error', 'always'],
+    'import/no-named-as-default-member': ['off'],
     'import/prefer-default-export': ['off'],
+    'no-bitwise': ['off'],
     'no-continue': ['off'],
     'no-param-reassign': ['off'],
+    'no-plusplus': ['off'],
     'no-restricted-syntax': ['off'],
-    'import/no-named-as-default-member': ['off'],
-    'no-bitwise': ['off'],
   },
 };

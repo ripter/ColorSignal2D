@@ -1,19 +1,21 @@
+import { colorFromColor } from '../utils/colorFromColor.mjs';
+
 /**
- * Cell value used in a code grid.
- * Contains a Symbol and (RGBA) Color.
- * @type {Cell}
+ * CodeSymbol value used in a code grid.
+ * Contains a CodeSymbol and (RGBA) Color.
+ * @type {CodeSymbol}
  */
-export class Cell {
+export class CodeSymbol {
   constructor(symbol, R, G, B, A) {
     this.symbol = symbol;
     this.data = new Uint8ClampedArray([R, G, B, A]);
   }
 
   /**
-   * Returns a new Cell with the same values as this Cell.
+   * Returns a new CodeSymbol with the same values as this CodeSymbol.
    */
   clone() {
-    return new Cell(this.symbol, this.R, this.G, this.B, this.A);
+    return new CodeSymbol(this.symbol, this.R, this.G, this.B, this.A);
   }
 
   /**
@@ -25,6 +27,18 @@ export class Cell {
     this.B = 0;
     this.A = 0;
     return this;
+  }
+
+  /**
+   * Returns the CodeSymbol in a string format.
+   * @return {String} - *#RRGGBBAA
+   */
+  toString() {
+    return this.symbol + colorFromColor(this, true);
+  }
+
+  toJSON() {
+    return this.toString();
   }
 
   get R() {
@@ -59,5 +73,3 @@ export class Cell {
     this.data[3] = val;
   }
 }
-
-// window.Cell = Cell;
