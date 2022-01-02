@@ -3,6 +3,15 @@ import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { GridCell } from '../core/GridCell.mjs';
 import { moveInDirection } from './abilities/moveInDirection.mjs';
 
+/**
+ * IF Symbol blocks signals that do not pass the filter.
+ * Signals with the SET Flag set the Filter.
+ * @param  {Number} x
+ * @param  {Number} y
+ * @param  {CodeSymbol} self
+ * @param  {[CodeSymbol]} collisions
+ * @return {[GridCell]}
+ */
 export function collide(x, y, self, collisions) {
   // Get the signals with the SET Flag.
   const setSymbols = collisions.filter(hasFlag.bind(null, FLAG.SET));

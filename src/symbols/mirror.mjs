@@ -1,6 +1,7 @@
 import { absorb } from './abilities/absorb.mjs';
 import { FLAG, hasFlag } from '../consts/flag.mjs';
 import { GridCell } from '../core/GridCell.mjs';
+import { moveInDirection } from './abilities/moveInDirection.mjs';
 
 /**
  * Mirror, reflects signals back the direction they came from.
@@ -19,19 +20,17 @@ export function tick(x, y, codeSymbol) {
 
   // Use the direction to set the two signals.
   if (hasFlag(FLAG.NORTH, codeSymbol)) {
-    signal.y += 1;
     signal.value.A = FLAG.SOUTH;
   } else if (hasFlag(FLAG.SOUTH, codeSymbol)) {
-    signal.y -= 1;
     signal.value.A = FLAG.NORTH;
   } else if (hasFlag(FLAG.EAST, codeSymbol)) {
-    signal.x -= 1;
     signal.value.A = FLAG.WEST;
   } else if (hasFlag(FLAG.WEST, codeSymbol)) {
-    signal.x += 1;
     signal.value.A = FLAG.EAST;
   }
 
+  // update the position
+  moveInDirection(signal);
   // reset self.
   codeSymbol.clear();
 
