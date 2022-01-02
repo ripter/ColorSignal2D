@@ -26,13 +26,12 @@ describe('symbol/if', () => {
         assert.deepEqual(
           collide(1, 1, ifCodeSymbol, [new CodeSymbol('*', 0x3D, 0x99, 0x70, FLAG.WEST)]),
           [
-            new GridCell(1, 1, new CodeSymbol('ʃ', 0x00, 0x00, 0x00, 0x00))
+            new GridCell(1, 1, new CodeSymbol('ʃ', 0x00, 0x00, 0x00, 0x00)),
           ],
           'Filter picks up color from SET CodeSymbol',
         );
       });
     });
-
   });
 
   describe('with value', () => {

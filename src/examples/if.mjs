@@ -6,7 +6,7 @@ const NSET = `*#FFFFFF${(FLAG.NORTH | FLAG.SET).toString(16)}`; // North Set Sig
 export default [
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
-  [EOS , null, EOS , null, 'ʃ' , null, null],
+  [EOS, null, EOS, null, 'ʃ', null, null],
   [null, null, null, null, null, null, null],
   [null, null, null, null, null, null, null],
   [null, null, null, null, NSET, null, null],
