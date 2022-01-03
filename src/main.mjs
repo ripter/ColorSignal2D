@@ -2,7 +2,7 @@ import {
   nextTick, render, reset, togglePlay,
 } from './actions/index.mjs';
 // import DEFAULT_CODE from './DEFAULT_CODE.mjs';
-import DEFAULT_CODE from './examples/if.mjs';
+import DEFAULT_CODE from './examples/mirror.mjs';
 
 // window.IS_RUNNING = true;
 window.OUTPUT = [];

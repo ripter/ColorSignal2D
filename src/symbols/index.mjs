@@ -1,6 +1,7 @@
 import ifRule from './if.mjs';
 import mirror from './mirror.mjs';
 import output from './output.mjs';
+import rotateClockwise from './rotateClockwise.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
 
@@ -20,4 +21,6 @@ export const RULES = {
   Ɨ: split,
   '|': mirror,
   ʃ: ifRule,
+  '/': rotateClockwise,
+  // '\':
 };
