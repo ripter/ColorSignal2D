@@ -6,11 +6,17 @@ import { CodeSymbol } from '../core/CodeSymbol.mjs';
  * @return {CodeSymbol}
  */
 export function textToCodeSymbol(rawText) {
-  const split = rawText.split('#');
-  const color = split.length === 2 ? split[1] : '00000000';
+  let token = rawText.trim();
+  let color = '00000000';
+
+  if (token.length > 1) {
+    const match = /(.)#([0-9a-fA-F]*)/.exec(token);
+    token = match[1];
+    color = match[2];
+  }
 
   return new CodeSymbol(
-    split[0],
+    token,
     // Convert each pair of chars as an 8bit hex value.
     parseInt(color.substring(0, 2), 16), // Red
     parseInt(color.substring(2, 4), 16), // Green

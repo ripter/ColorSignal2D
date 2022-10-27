@@ -27,4 +27,20 @@ describe('textToCodeSymbol', () => {
     assert.equal(actual.B, 0x00, 'Sets Blue');
     assert.equal(actual.A, 0x04, 'Sets Alpha');
   });
+  it('converts "#" to cell with default color & config', () => {
+    const actual = textToCodeSymbol('#');
+    assert.equal(actual.symbol, '#', 'Sets symbol');
+    assert.equal(actual.R, 0x00, 'Sets Red');
+    assert.equal(actual.G, 0x00, 'Sets Green');
+    assert.equal(actual.B, 0x00, 'Sets Blue');
+    assert.equal(actual.A, 0x00, 'Sets Alpha');
+  });
+  it('converts "##030201" to cell with color & config', () => {
+    const actual = textToCodeSymbol('##030201');
+    assert.equal(actual.symbol, '#', 'Sets symbol');
+    assert.equal(actual.R, 0x03, 'Sets Red');
+    assert.equal(actual.G, 0x02, 'Sets Green');
+    assert.equal(actual.B, 0x01, 'Sets Blue');
+    assert.equal(actual.A, 0x00, 'Sets Alpha');
+  });
 });

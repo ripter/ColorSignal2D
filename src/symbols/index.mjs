@@ -5,6 +5,7 @@ import rotateClockwise from './rotateClockwise.mjs';
 import rotateCounterClockwise from './rotateCounterClockwise.mjs';
 import signal from './signal.mjs';
 import split from './split.mjs';
+import numberToChar from './numberToChar.mjs';
 
 /**
  * Default Rules for the language.
@@ -19,6 +20,7 @@ export const RULES = {
       window.OUTPUT.push(...chars);
     }),
   },
+  '#': numberToChar,
   Ɨ: split,
   '|': mirror,
   ʃ: ifRule,
