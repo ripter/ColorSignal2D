@@ -15,11 +15,14 @@ export function tick(x, y, self) {
   }
 
   // convert the color into a single number.
-  // const value = parseInt(`${self.R.toString(16)}${self.G.toString(16)}${self.B.toString(16)`, 16);
+  const value = parseInt( 
+    `${self.R.toString(16)}${self.G.toString(16)}${self.B.toString(16)}`,
+    16
+  );
   self.clear();
   return [
     new GridCell(x, y, self),
-    new GridCell(x, y, 'b'),
+    new GridCell(x, y, value),
   ];
 }
 
