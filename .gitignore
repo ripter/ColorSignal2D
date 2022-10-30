@@ -2,3 +2,4 @@
 testresults/
 node_modules/
 nimcache/
+out/

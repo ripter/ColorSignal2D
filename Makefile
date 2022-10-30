@@ -26,10 +26,10 @@ node_modules/: package.json
 	touch node_modules/
 
 build:
-	nim compile src/main.nim
+	nim compile --outDir:"./out" src/main.nim
 
 run:
-	nim compile --run src/main.nim
+	nim compile --outDir:"./out" --run src/main.nim
 
 deploy:
-	nim compile -d:release src/main.nim
+	nim compile --outDir:"./out" -d:release src/main.nim

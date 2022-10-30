@@ -6,6 +6,18 @@ Signals are data in motion! Instead of creating a variable, ColorSignal2D uses a
 The code and data are represented on a 2D grid using a symbol (UTF-8 charecter code) and a [RGBA](https://en.wikipedia.org/wiki/RGBA_color_model) Color value. This allows the entire state of the program to be stored and loaded as text or an image. A color display can display the symbols in their color, while a text or coloreless display can render `Symbol#RGBA`.
 
 
+## The Grid
+
+
+A ColorSignal2D program runs on a grid of infinate size.
+
+## A Symbol
+
+A Symbol runs code when it is encountered on The Grid.
+
+
+
+
 
 # Design Decisions
 
