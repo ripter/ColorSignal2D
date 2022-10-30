@@ -21,7 +21,8 @@ export function tick(x, y, self) {
   );
   self.clear();
   return [
-    new GridCell(x, y, self),
+    // new GridCell(x, y, self),
+    self,
     new GridCell(x, y, value),
   ];
 }

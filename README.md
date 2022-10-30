@@ -1,11 +1,9 @@
 # ColorSignal2D
-A 2D Programming language based on colored signals.
+A 2D Programming language based on colored signals. Inspired by light and physics.
 
-Signals are data in motion! In a human language you write a line that assigns data to a variable. Then you pass that variable to a function. In ColorSignals2D you add moving signals and direct them to hit the function you want. Instead of passing a variable, you collide the data in.
+Signals are data in motion! Instead of creating a variable, ColorSignal2D uses a colored moving signal. The Symbol defines the signal direction, and the color provides 24 bits of data along with 8 bits of flags. Instead of functions, the languages uses Symbols on a 2D grid. When a color signal collides with another Symbol, 
 
-
-The code and data are represented on a 2D grid using a symbol (UTF-8 charecter code) and a [RGBA](https://en.wikipedia.org/wiki/RGBA_color_model) Color value. This allows the entire state of the program to be stored and loaded as text. A color display can display the symbols in their color, while a text or coloreless display can render `Symbol#RGBA`.
-
+The code and data are represented on a 2D grid using a symbol (UTF-8 charecter code) and a [RGBA](https://en.wikipedia.org/wiki/RGBA_color_model) Color value. This allows the entire state of the program to be stored and loaded as text or an image. A color display can display the symbols in their color, while a text or coloreless display can render `Symbol#RGBA`.
 
 
 
@@ -13,7 +11,7 @@ The code and data are represented on a 2D grid using a symbol (UTF-8 charecter c
 
 ## Entire State can be stored as plain text.
 
-Not all formats support color. So it must be possible to save the entire application state in something that is supported everywhere. To do this, the application state can be imported and exported as a plain text file. Symbols remain unchanged, while the color is turned into a hex code appended to the symbol.
+Not all formats support color. So it must be possible to save the entire application state in something that is supported everywhere. To do this, the application state can be imported and exported as a UTF-8 encoded text file. The first UTF-8 chaacter is the Symbol, followed by an RGBA hex code.
 
 For example: `*#FFFFFF04` is a White (#FFFFF) colored Signal (*) moving East (04).
 
