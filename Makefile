@@ -16,6 +16,8 @@ server: node_modules/
 test: node_modules/
 	# npx mocha src/**/**.test.js
 	testament pattern "src/*_test.nim"
+	-rm src/main_test
+	-rm src/main_test.js
 
 
 
