@@ -11,8 +11,9 @@ The code and data are represented on a 2D grid using a symbol (UTF-8 charecter c
 
 A ColorSignal2D program runs on a grid of infinate size.
 
-## A Symbol
+## A Token
 
+A Token represents all of the data around a Colored Signal. 
 A Symbol runs code when it is encountered on The Grid.
 
 
