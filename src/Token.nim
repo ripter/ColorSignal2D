@@ -2,7 +2,8 @@ import strutils
 
 type
   Direction = enum
-    North, NorthEast, SouthEast, South, SouthWest, NorthWest # Hex with flat side up.
+    #North, NorthEast, SouthEast, South, SouthWest, NorthWest # Hex with flat side up.
+    dEast, dEastNorth, dEastSouth, dWest, dWestNorth, dWestSouth # Hex with point side up.
     
   Token = object
     symbol: string
@@ -63,19 +64,41 @@ proc didCollide(self, other: Token): bool =
 
 
 
-# Create a Token from Char and RGB hex code.
-proc createToken(symbol: string, rgbaHex: string, dir: Direction, isControl: bool = false): Token =
+# Create a Signal Token from Char and RGB hex code.
+# Signal tokens have isControl and parity.
+proc createSignalToken(symbol: string, rgbaHex: string, dir: Direction, isControl: bool = false): Token =
   return Token(
     symbol: symbol, 
-    r: parseInt(parseHexStr(rgbaHex[0..1])).uint8, 
-    g: parseInt(parseHexStr(rgbaHex[2..3])).uint8, 
-    b: parseInt(parseHexStr(rgbaHex[4..5])).uint8, 
+    r: fromHex[uint8](rgbaHex[0..1]),
+    g: fromHex[uint8](rgbaHex[2..3]), 
+    b: fromHex[uint8](rgbaHex[4..5]), 
     a: getAlpha(dir, isControl))
 
 
+# Create a Counter Token.
+# Count is a number between 0-3.
+proc createCounterToken(symbol: string, rgbaHex: string, dir: Direction, count: uint8): Token =
+  # Ensure count is only two bits
+  let sanitizedCount = count and 0b11
+  # Get the direction bits (3 least significant bits)
+  let direction = uint8(dir) and 0b111
+  # Incorporate count into alpha
+  # Shift count left by 3 bits and combine with alpha
+  let alpha = direction or (sanitizedCount shl 3)
+  
+  return Token(
+    symbol: symbol, 
+    r: fromHex[uint8](rgbaHex[0..1]),
+    g: fromHex[uint8](rgbaHex[2..3]), 
+    b: fromHex[uint8](rgbaHex[4..5]), 
+    a: alpha)
 
 
-echo toHex("FF")
+
+
+#[
+let hexStr = "FF120C"
+echo hexStr[2..3]
 
 # Usage example
 let myToken = Token(symbol: "M", r: 255, g: 255, b: 255, a: getAlpha(SouthWest, false))
@@ -84,9 +107,12 @@ let myToken = Token(symbol: "M", r: 255, g: 255, b: 255, a: getAlpha(SouthWest, 
 echo myToken.getDirection()
 echo myToken.isPrimary()
 echo myToken.isValid()
-
+]#
 
 # Make Signal moving East
-let signal1 = createToken("*", "FF0000", NorthEast)
-echo signal1
+#let signal1 = createSignalToken("*", "FF851B", East)
+#echo signal1
 
+let generator1 = createCounterToken("⚁", "7FDBFF",  dEast, 1)
+echo generator1
+echo generator1.isValid() # not a valid check for Counter Tokens, it's only for signals.
