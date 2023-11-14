@@ -1,9 +1,20 @@
 import strutils
 
+type BitOperation = enum
+  boOff, boOn,
+  boLeftShift, boRightShift,
+  boAndBoth, boAndGreen, boAndBlue,
+  boOrBoth, boOrGreen, boOrBlue,
+  boXorBoth, boXorGreen, boXorBlue,
+  boNotBoth, boNotGreen, boNotBlue,
+
 type
   Direction = enum
     #North, NorthEast, SouthEast, South, SouthWest, NorthWest # Hex with flat side up.
     dEast, dEastNorth, dEastSouth, dWest, dWestNorth, dWestSouth # Hex with point side up.
+  
+  TokenProperty = enum
+    tpRed, tpRedGreen, tpRedBlue, tpRedAlpha, tpGreen, tpGreenBlue, tpGreenAlpha, tpBlue, tpBlueAlpha
     
   Token = object
     symbol: string
@@ -109,9 +120,13 @@ echo myToken.isPrimary()
 echo myToken.isValid()
 ]#
 
+echo getAlpha(dEast, true)
+    
 # Make Signal moving East
-#let signal1 = createSignalToken("*", "FF851B", East)
-#echo signal1
+let signal1 = createSignalToken("*", "FF851B", dWest)
+echo signal1
+
+
 
 let generator1 = createCounterToken("⚁", "7FDBFF",  dEast, 1)
 echo generator1
