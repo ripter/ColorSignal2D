@@ -1,5 +1,6 @@
 import strutils
 
+# 4 bits to hold the Bit Operation value.
 type BitOperation = enum
   boOff, boOn,
   boLeftShift, boRightShift,
@@ -8,33 +9,42 @@ type BitOperation = enum
   boXorBoth, boXorGreen, boXorBlue,
   boNotBoth, boNotGreen, boNotBlue,
 
-type
-  Direction = enum
-    #North, NorthEast, SouthEast, South, SouthWest, NorthWest # Hex with flat side up.
-    dEast, dEastNorth, dEastSouth, dWest, dWestNorth, dWestSouth # Hex with point side up.
-  
-  TokenProperty = enum
-    tpRed, tpRedGreen, tpRedBlue, tpRedAlpha, tpGreen, tpGreenBlue, tpGreenAlpha, tpBlue, tpBlueAlpha
-    
-  Token = object
-    symbol: string
-    r, g, b, a: uint8  # uint8 is an unsigned integer type that ranges from 0 to 255
 
+type Direction = enum
+  #North, NorthEast, SouthEast, South, SouthWest, NorthWest # Hex with flat side up.
+  dEast, dEastNorth, dEastSouth, dWest, dWestNorth, dWestSouth # Hex with point side up.
+
+type RGBA = object
+  r, g, b, a: uint8
+
+type AxialCoordinate = object
+  q, r, s: uint8
+
+type Token = object
+  symbol: string
+  color: RGBA
+  position: AxialCoordinate
+    
+
+    
+proc toString(self: Token): string = 
+  # TODO: Finish this using toHex. The results should be {symbol}#{hexRGBA}
+  discard "TODO: Finish this using toHex. The results should be {symbol}#{hexRGBA}"
     
 # Procedures for Token type
 proc getDirection(self: Token): Direction =
-  return Direction(self.a and 0b111)  # Extract the 3 least significant bits for direction
+  return Direction(self.color.a and 0b111)  # Extract the 3 least significant bits for direction
 
 
 proc isPrimary(self: Token): bool =
-  return ((self.a shr 3) and 0b1) == 0b1
+  return ((self.color.a shr 3) and 0b1) == 0b1
 
 
 proc isValid(self: Token): bool =
   # Check even parity of the first 7 bits
   var count = 0
   for i in 0..6:
-    if ((self.a shr i) and 0b1) == 0b1:
+    if ((self.color.a shr i) and 0b1) == 0b1:
       inc(count)
   return count mod 2 == 0  # Even parity if count of 1s is even
 
@@ -72,62 +82,63 @@ proc didCollide(self, other: Token): bool =
   return self.symbol != other.symbol
 
 
-
+# Creates a Token with the Symbol and Color
+# Color is an RGBA hex string like "FFFFFF00"
+# Position defaults to 0
+proc createToken(symbol: string, color: string): Token =
+  return Token(
+    symbol: symbol,
+    color: RGBA(
+      r: fromHex[uint8](color[0..1]),
+      g: fromHex[uint8](color[2..3]), 
+      b: fromHex[uint8](color[4..5]),
+      a: fromHex[uint8](color[6..7]),
+    ),
+    position: AxialCoordinate(q:0, r:0, s:0)
+  )
 
 
 # Create a Signal Token from Char and RGB hex code.
 # Signal tokens have isControl and parity.
-proc createSignalToken(symbol: string, rgbaHex: string, dir: Direction, isControl: bool = false): Token =
-  return Token(
-    symbol: symbol, 
-    r: fromHex[uint8](rgbaHex[0..1]),
-    g: fromHex[uint8](rgbaHex[2..3]), 
-    b: fromHex[uint8](rgbaHex[4..5]), 
-    a: getAlpha(dir, isControl))
+proc createSignalToken(symbol: string, color: string, dir: Direction, isControl: bool = false): Token =
+  # First, compute the alpha value
+  let alphaValue = getAlpha(dir, isControl)
+
+  # Convert alphaValue to a hexadecimal string and append it to the color string
+  let rgba = color[0..5] & toHex(alphaValue)
+
+  # Now, pass this new rgba string to createToken
+  return createToken(symbol, rgba)
+
+
 
 
 # Create a Counter Token.
 # Count is a number between 0-3.
-proc createCounterToken(symbol: string, rgbaHex: string, dir: Direction, count: uint8): Token =
+proc createCounterToken(symbol: string, color: string, dir: Direction, count: uint8): Token =
   # Ensure count is only two bits
   let sanitizedCount = count and 0b11
   # Get the direction bits (3 least significant bits)
   let direction = uint8(dir) and 0b111
   # Incorporate count into alpha
   # Shift count left by 3 bits and combine with alpha
-  let alpha = direction or (sanitizedCount shl 3)
+  let alphaValue = direction or (sanitizedCount shl 3)
+  # Convert alphaValue to a hexadecimal string and append it to the color string
+  let rgba = color[0..5] & toHex(alphaValue)
   
-  return Token(
-    symbol: symbol, 
-    r: fromHex[uint8](rgbaHex[0..1]),
-    g: fromHex[uint8](rgbaHex[2..3]), 
-    b: fromHex[uint8](rgbaHex[4..5]), 
-    a: alpha)
+  return createToken(symbol, rgba)
 
 
 
 
-#[
-let hexStr = "FF120C"
-echo hexStr[2..3]
 
-# Usage example
-let myToken = Token(symbol: "M", r: 255, g: 255, b: 255, a: getAlpha(SouthWest, false))
 
-# Call procedures on Token instance
-echo myToken.getDirection()
-echo myToken.isPrimary()
-echo myToken.isValid()
-]#
 
-echo getAlpha(dEast, true)
     
-# Make Signal moving East
+# Make Signal
 let signal1 = createSignalToken("*", "FF851B", dWest)
 echo signal1
 
 
-
 let generator1 = createCounterToken("⚁", "7FDBFF",  dEast, 1)
 echo generator1
-echo generator1.isValid() # not a valid check for Counter Tokens, it's only for signals.
