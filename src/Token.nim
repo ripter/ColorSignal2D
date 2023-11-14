@@ -27,10 +27,23 @@ type Token = object
     
 
     
-proc toString(self: Token): string = 
-  # TODO: Finish this using toHex. The results should be {symbol}#{hexRGBA}
-  discard "TODO: Finish this using toHex. The results should be {symbol}#{hexRGBA}"
+
+proc toHexCode(self: Token): string =
+  # Convert each RGBA component to a hexadecimal string
+  let rHex = toHex(self.color.r, 2)  # Ensuring 2 characters for each component
+  let gHex = toHex(self.color.g, 2)
+  let bHex = toHex(self.color.b, 2)
+  let aHex = toHex(self.color.a, 2)
+  return rHex & gHex & bHex & aHex
+
     
+proc toString(self: Token): string =
+  # Concatenate the symbol and the hex values
+  return self.symbol & "#" & self.toHexCode()
+
+
+
+
 # Procedures for Token type
 proc getDirection(self: Token): Direction =
   return Direction(self.color.a and 0b111)  # Extract the 3 least significant bits for direction
@@ -100,15 +113,19 @@ proc createToken(symbol: string, color: string): Token =
 
 # Create a Signal Token from Char and RGB hex code.
 # Signal tokens have isControl and parity.
-proc createSignalToken(symbol: string, color: string, dir: Direction, isControl: bool = false): Token =
+proc createSignalToken(color: string, dir: Direction, isControl: bool = false): Token =
   # First, compute the alpha value
   let alphaValue = getAlpha(dir, isControl)
-
   # Convert alphaValue to a hexadecimal string and append it to the color string
   let rgba = color[0..5] & toHex(alphaValue)
-
   # Now, pass this new rgba string to createToken
-  return createToken(symbol, rgba)
+  return createToken("*", rgba)
+
+
+proc createControlSignalToken(color: string, op: BitOperation, dir: Direction): Token =
+  var token = createSignalToken(color, dir, true)
+  token.color.r = uint8(op) and 0x0F
+  return token
 
 
 
@@ -125,7 +142,6 @@ proc createCounterToken(symbol: string, color: string, dir: Direction, count: ui
   let alphaValue = direction or (sanitizedCount shl 3)
   # Convert alphaValue to a hexadecimal string and append it to the color string
   let rgba = color[0..5] & toHex(alphaValue)
-  
   return createToken(symbol, rgba)
 
 
@@ -136,8 +152,11 @@ proc createCounterToken(symbol: string, color: string, dir: Direction, count: ui
 
     
 # Make Signal
-let signal1 = createSignalToken("*", "FF851B", dWest)
-echo signal1
+let signal1 = createSignalToken("FF851B", dWest)
+echo "signal: " & signal1.toString()
+
+let signal2 = createControlSignalToken("000000", boOff, dWest)
+echo "control: " & signal2.toString()
 
 
 let generator1 = createCounterToken("⚁", "7FDBFF",  dEast, 1)
