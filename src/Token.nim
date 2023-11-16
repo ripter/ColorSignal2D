@@ -155,7 +155,8 @@ proc createCounterToken(symbol: string, color: string, dir: Direction, count: ui
 let signal1 = createSignalToken("FF851B", dWest)
 echo "signal: " & signal1.toString()
 
-let signal2 = createControlSignalToken("000000", boOff, dWest)
+var signal2 = createControlSignalToken("000000", boOff, dWest)
+signal2.symbol = "Ⓕ"
 echo "control: " & signal2.toString()
 
 
