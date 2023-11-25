@@ -11,7 +11,7 @@ lint: node_modules/
 	npx eslint --fix src/*.mjs src/**/*.mjs src/**/*.test.js
 
 server: node_modules/
-	npx http-server src/ -o
+	npx http-server public/ -o
 
 test: node_modules/
 	# npx mocha src/**/**.test.js
